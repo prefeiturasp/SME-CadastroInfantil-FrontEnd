@@ -1,149 +1,121 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React from "react";
 import { Form, Field } from "react-final-form";
+import { InputText } from "../../components/Input/InputText";
+import { InputComData } from "../../components/DatePicker";
+import "./style.scss";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const onSubmit = async (values) => {
-  await sleep(300)
+  await sleep(300);
   window.alert(JSON.stringify(values, 0, 2));
 };
 
 export const Formulario = () => {
   return (
     <div>
-      <h1>React Final Form - Simple Example</h1>
-      <a
-        href="https://final-form.org/react"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Read Docs
-      </a>
       <Form
         onSubmit={onSubmit}
         initialValues={{ stooge: "larry", employed: false }}
         render={({ handleSubmit, form, submitting, pristine, values }) => (
           <form onSubmit={handleSubmit}>
-            <div>
-              <label>First Name</label>
+            <section className="crianca">
+              <h2>Dados da Criança</h2>
               <Field
-                name="firstName"
-                component="input"
+                label="Nome Completo da criança"
+                name="nome_crianca"
+                component={InputText}
                 type="text"
-                placeholder="First Name"
+                placeholder="Nome completo da criança"
               />
-            </div>
-            <div>
-              <label>Last Name</label>
+              <div className="row mt-2">
+                <div className="col-6">
+                  <label>Gênero da criança</label>
+                  <div>
+                    <label>
+                      <Field
+                        name="genero"
+                        component="input"
+                        type="radio"
+                        value="masculino"
+                      />{" "}
+                      Masculino
+                    </label>
+                    <label className="ml-3">
+                      <Field
+                        name="genero"
+                        component="input"
+                        type="radio"
+                        value="feminino"
+                      />{" "}
+                      Feminino
+                    </label>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <Field
+                    label="Data de nascimento da criança"
+                    component={InputComData}
+                    name="data_nascimento"
+                    showMonthDropdown
+                    showYearDropdown
+                    hasIcon
+                  />
+                </div>
+              </div>
               <Field
-                name="lastName"
-                component="input"
+                label="Nome Completo do Pai da Criança"
+                name="nome_pai"
+                component={InputText}
                 type="text"
-                placeholder="Last Name"
+                placeholder="Nome completo do Pai da criança"
               />
-            </div>
-            <div>
-              <label>Employed</label>
-              <Field name="employed" component="input" type="checkbox" />
-            </div>
-            <div>
-              <label>Favorite Color</label>
-              <Field name="favoriteColor" component="select">
-                <option />
-                <option value="#ff0000">❤️ Red</option>
-                <option value="#00ff00">💚 Green</option>
-                <option value="#0000ff">💙 Blue</option>
-              </Field>
-            </div>
-            <div>
-              <label>Toppings</label>
-              <Field name="toppings" component="select" multiple>
-                <option value="chicken">🐓 Chicken</option>
-                <option value="ham">🐷 Ham</option>
-                <option value="mushrooms">🍄 Mushrooms</option>
-                <option value="cheese">🧀 Cheese</option>
-                <option value="tuna">🐟 Tuna</option>
-                <option value="pineapple">🍍 Pineapple</option>
-              </Field>
-            </div>
-            <div>
-              <label>Sauces</label>
-              <div>
-                <label>
-                  <Field
-                    name="sauces"
-                    component="input"
-                    type="checkbox"
-                    value="ketchup"
-                  />{" "}
-                  Ketchup
-                </label>
-                <label>
-                  <Field
-                    name="sauces"
-                    component="input"
-                    type="checkbox"
-                    value="mustard"
-                  />{" "}
-                  Mustard
-                </label>
-                <label>
-                  <Field
-                    name="sauces"
-                    component="input"
-                    type="checkbox"
-                    value="mayonnaise"
-                  />{" "}
-                  Mayonnaise
-                </label>
-                <label>
-                  <Field
-                    name="sauces"
-                    component="input"
-                    type="checkbox"
-                    value="guacamole"
-                  />{" "}
-                  Guacamole 🥑
-                </label>
+              <Field
+                label="Nome Completo da Mãe da Criança"
+                name="nome_mae"
+                component={InputText}
+                type="text"
+                placeholder="Nome completo da mãe da criança"
+              />
+            </section>
+            <section className="responsavel">
+              <h2>Dados do Responsável</h2>
+              <div className="row mt-2">
+                <div className="col-6">
+                  <label>Quem é o responsável?</label>
+                  <div>
+                    <label>
+                      <Field
+                        name="responsavel"
+                        component="input"
+                        type="radio"
+                        value="pai"
+                      />{" "}
+                      Pai
+                    </label>
+                    <label className="ml-3">
+                      <Field
+                        name="responsavel"
+                        component="input"
+                        type="radio"
+                        value="mae"
+                      />{" "}
+                      Mãe
+                    </label>
+                    <label className="ml-3">
+                      <Field
+                        name="responsavel"
+                        component="input"
+                        type="radio"
+                        value="outro"
+                      />{" "}
+                      Outro
+                    </label>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div>
-              <label>Best Stooge</label>
-              <div>
-                <label>
-                  <Field
-                    name="stooge"
-                    component="input"
-                    type="radio"
-                    value="larry"
-                  />{" "}
-                  Larry
-                </label>
-                <label>
-                  <Field
-                    name="stooge"
-                    component="input"
-                    type="radio"
-                    value="moe"
-                  />{" "}
-                  Moe
-                </label>
-                <label>
-                  <Field
-                    name="stooge"
-                    component="input"
-                    type="radio"
-                    value="curly"
-                  />{" "}
-                  Curly
-                </label>
-              </div>
-            </div>
-            <div>
-              <label>Notes</label>
-              <Field name="notes" component="textarea" placeholder="Notes" />
-            </div>
+            </section>
             <div className="buttons">
               <button type="submit" disabled={submitting || pristine}>
                 Submit
@@ -156,7 +128,6 @@ export const Formulario = () => {
                 Reset
               </button>
             </div>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
           </form>
         )}
       />

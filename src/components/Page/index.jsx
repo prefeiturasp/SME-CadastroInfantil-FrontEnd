@@ -18,15 +18,15 @@ export default class Page extends Component {
   }
 
   render() {
-    const { nome, nome_instituicao, registro_funcional, toggled } = this.state;
-    const { children, titulo, botaoVoltar, voltarPara } = this.props;
+    const { toggled } = this.state;
+    const { children, titulo } = this.props;
     return (
-      <div id="wrapper">
-        <div id="content-wrapper" className="pt-5">
+      <div id="wrapper" className="row">
+        <div id="content-wrapper container" className="offset-md-3 col-md-6">
           <div
             className={`content-wrapper-div ${
               toggled && "toggled"
-            } d-flex flex-column p-4 mt-5`}
+            } d-flex flex-column p-4`}
           >
             <h1 className="page-title">{titulo}</h1>
             {children}

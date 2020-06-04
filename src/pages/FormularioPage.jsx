@@ -3,7 +3,7 @@ import Page from "../components/Page";
 import { Formulario } from "../screens/Formulario";
 
 export default () => (
-  <Page titulo={"Formulario"}>
+  <Page titulo={"Formulário de Pré-Cadastro"}>
     <Formulario />
   </Page>
 );
