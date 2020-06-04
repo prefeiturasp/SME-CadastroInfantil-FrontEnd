@@ -1,0 +1,24 @@
+.breadcrumb-title {
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #c8c8c8;
+}
+
+.page-title {
+  padding-top: 1.2rem;
+}
+
+#wrapper {
+  padding-right: 3rem;
+  background-color: white;
+}
+
+#content-wrapper {
+  div.content-wrapper-div {
+    margin-left: 17rem;
+    &.toggled {
+      margin-left: 5.5rem;
+    }
+  }
+}
