@@ -1,0 +1,1 @@
+export const CINCO_MB = 5242880;

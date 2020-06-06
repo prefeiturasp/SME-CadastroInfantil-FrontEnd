@@ -7,5 +7,8 @@ section.crianca, section.responsavel {
   label {
     font-size: 14px;
     color: $gray;
+    span {
+      color: $red;
+    }
   }
 }

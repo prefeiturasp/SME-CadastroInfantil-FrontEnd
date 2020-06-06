@@ -34,7 +34,7 @@ export class InputComData extends Component {
     disabled: false,
     fullScreen: false,
     inline: false,
-    hasIcon: true,
+    hasIcon: false,
   };
 
   constructor(props) {
