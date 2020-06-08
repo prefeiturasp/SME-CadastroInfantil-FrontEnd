@@ -626,7 +626,7 @@ export const Formulario = () => {
                 <div className="col-5">
                   <Field
                     component={InputText}
-                    placeholder={"E-mail do responsável"}
+                    placeholder={"Telefone do responsável"}
                     label="Telefone do responsável"
                     parse={formatString("(99) 99999-9999")}
                     name="telefone_responsavel"
