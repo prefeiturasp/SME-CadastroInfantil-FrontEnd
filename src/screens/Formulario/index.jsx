@@ -190,6 +190,15 @@ export const Formulario = () => {
                         name="raca"
                         component="input"
                         type="radio"
+                        value="indigena"
+                      />{" "}
+                      Indígena
+                    </label>
+                    <label className="ml-3">
+                      <Field
+                        name="raca"
+                        component="input"
+                        type="radio"
                         value="parda"
                       />{" "}
                       Parda
@@ -218,7 +227,7 @@ export const Formulario = () => {
               <div className="row mt-2">
                 <div className="col-6">
                   <label>
-                    <span>* </span>Possui necessidade especial?
+                    <span>* </span>Possui alguma deficiência?
                   </label>
                   <div>
                     <label>
@@ -246,7 +255,7 @@ export const Formulario = () => {
                     <Field
                       component={Select}
                       name="tipo_necessidade_especial"
-                      label="Tipo de Necessidade Especial"
+                      label="Tipo de Deficiência"
                       options={arrayToOptions(NECESSIDADES_ESPECIAIS)}
                       required
                       validate={required}
@@ -572,11 +581,6 @@ export const Formulario = () => {
                   somenteCaracteresEEspacos
                 )}
                 toUppercaseActive
-                disabled={
-                  !values.tipo_responsavel ||
-                  values.tipo_responsavel === "1" ||
-                  values.tipo_responsavel === "2"
-                }
               />
               <div className="row">
                 <div className="col-6">
@@ -603,27 +607,38 @@ export const Formulario = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="col-7">
+                <div className="col-12">
                   <Field
                     component={InputText}
                     placeholder={"E-mail do responsável"}
                     label="E-mail do responsável"
                     name="email"
-                    required
                     type="text"
-                    validate={composeValidators(required, validaEmail)}
+                    validate={composeValidators(validaEmail)}
                   />
                 </div>
-                <div className="col-5">
+              </div>
+              <div className="row">
+                <div className="col-6">
                   <Field
                     component={InputText}
-                    placeholder={"Telefone do responsável"}
-                    label="Telefone do responsável"
+                    placeholder={"Telefone 1 do responsável"}
+                    label="Telefone 1 do responsável"
                     parse={formatString("(99) 99999-9999")}
                     name="telefone_responsavel"
                     required
                     type="text"
                     validate={composeValidators(required)}
+                  />
+                </div>
+                <div className="col-6">
+                  <Field
+                    component={InputText}
+                    placeholder={"Telefone 2 do responsável"}
+                    label="Telefone 2 do responsável"
+                    parse={formatString("(99) 99999-9999")}
+                    name="telefone_responsavel_2"
+                    type="text"
                   />
                 </div>
               </div>
