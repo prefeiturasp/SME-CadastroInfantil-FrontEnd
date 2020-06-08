@@ -574,8 +574,8 @@ export const Formulario = () => {
                 toUppercaseActive
                 disabled={
                   !values.tipo_responsavel ||
-                  values.tipo_responsavel === "0" ||
-                  values.tipo_responsavel === "1"
+                  values.tipo_responsavel === "1" ||
+                  values.tipo_responsavel === "2"
                 }
               />
               <div className="row">
@@ -617,7 +617,7 @@ export const Formulario = () => {
                 <div className="col-5">
                   <Field
                     component={InputText}
-                    placeholder={"E-mail do responsável"}
+                    placeholder={"Telefone do responsável"}
                     label="Telefone do responsável"
                     parse={formatString("(99) 99999-9999")}
                     name="telefone_responsavel"
