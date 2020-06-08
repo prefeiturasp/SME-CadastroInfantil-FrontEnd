@@ -610,15 +610,31 @@ export const Formulario = () => {
                   />
                 </div>
               </div>
-              <Field
-                component={InputText}
-                placeholder={"E-mail do responsável"}
-                label="E-mail do responsável"
-                name="email_responsavel"
-                required
-                type="text"
-                validate={composeValidators(required, validaEmail)}
-              />
+              <div className="row">
+                <div className="col-7">
+                  <Field
+                    component={InputText}
+                    placeholder={"E-mail do responsável"}
+                    label="E-mail do responsável"
+                    name="email_responsavel"
+                    required
+                    type="text"
+                    validate={composeValidators(required, validaEmail)}
+                  />
+                </div>
+                <div className="col-5">
+                  <Field
+                    component={InputText}
+                    placeholder={"E-mail do responsável"}
+                    label="Telefone do responsável"
+                    parse={formatString("(99) 99999-9999")}
+                    name="telefone_responsavel"
+                    required
+                    type="text"
+                    validate={composeValidators(required)}
+                  />
+                </div>
+              </div>
             </section>
             <div className="row pt-3">
               <div className="col-12 text-right">
