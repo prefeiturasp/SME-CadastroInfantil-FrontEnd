@@ -24,11 +24,8 @@ import { getEnderecoPorCEP } from "../../services/cep.service";
 import Botao from "../../components/Botao";
 import { BUTTON_TYPE, BUTTON_STYLE } from "../../components/Botao/constants";
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 const onSubmit = async (values) => {
-  await sleep(300);
-  window.alert(JSON.stringify(values, 0, 2));
+  window.location.href = "/cadastro-sucesso";
 };
 
 export const Formulario = () => {
@@ -63,6 +60,7 @@ export const Formulario = () => {
                 type="text"
                 placeholder="Nome completo da criança"
                 required
+                toUppercaseActive
                 validate={composeValidators(
                   required,
                   somenteCaracteresEEspacos
@@ -301,6 +299,7 @@ export const Formulario = () => {
                     name="numero_moradia"
                     required
                     validate={required}
+                    toUppercaseActive
                   />
                 </div>
                 <div className="col-8">
@@ -308,6 +307,7 @@ export const Formulario = () => {
                     component={InputText}
                     label="Complemento"
                     name="complemento_moradia"
+                    toUppercaseActive
                   />
                 </div>
               </div>
@@ -339,6 +339,7 @@ export const Formulario = () => {
                   required,
                   somenteCaracteresEEspacos
                 )}
+                toUppercaseActive
               />
               <div className="row mt-2">
                 <div className="col-3">
@@ -427,6 +428,7 @@ export const Formulario = () => {
                       required,
                       somenteCaracteresEEspacos
                     )}
+                    toUppercaseActive
                   />
                   <div className="row mt-2">
                     <div className="col-3">
@@ -553,6 +555,7 @@ export const Formulario = () => {
                         required,
                         somenteCaracteresEEspacos
                       )}
+                      toUppercaseActive
                     />
                   </div>
                 )}
@@ -568,6 +571,7 @@ export const Formulario = () => {
                   required,
                   somenteCaracteresEEspacos
                 )}
+                toUppercaseActive
                 disabled={
                   !values.tipo_responsavel ||
                   values.tipo_responsavel === "0" ||
