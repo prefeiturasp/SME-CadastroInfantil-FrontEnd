@@ -125,7 +125,7 @@ export const Formulario = () => {
                     <Field
                       label="Data de entrada no país da criança"
                       component={InputComData}
-                      name="data_nascimento"
+                      name="dt_entrada_brasil"
                       showMonthDropdown
                       showYearDropdown
                       required
