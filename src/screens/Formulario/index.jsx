@@ -510,6 +510,9 @@ export const Formulario = () => {
                         component="input"
                         type="radio"
                         value="1"
+                        onClick={() =>
+                          (values.nome_responsavel = values.nome_filiacao_1)
+                        }
                       />{" "}
                       Filiação 1
                     </label>
@@ -519,6 +522,9 @@ export const Formulario = () => {
                         component="input"
                         type="radio"
                         value="2"
+                        onClick={() =>
+                          (values.nome_responsavel = values.nome_filiacao_2)
+                        }
                       />{" "}
                       Filiação 2
                     </label>
@@ -528,19 +534,11 @@ export const Formulario = () => {
                         component="input"
                         type="radio"
                         value="3"
+                        onClick={() => (values.nome_responsavel = "")}
                       />{" "}
                       Outro
                     </label>
                   </div>
-                  <OnChange name="tipo_responsavel">
-                    {async (value, previous) => {
-                      if (value === "1") {
-                        values.nome_responsavel = values.nome_filiacao_1;
-                      } else if (value === "2") {
-                        values.nome_responsavel = values.nome_filiacao_2;
-                      }
-                    }}
-                  </OnChange>
                 </div>
                 {values.tipo_responsavel === "3" && (
                   <div className="col-6">
