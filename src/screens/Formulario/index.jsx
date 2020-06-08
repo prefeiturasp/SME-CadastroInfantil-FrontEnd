@@ -23,8 +23,12 @@ import formatString from "format-string-by-pattern";
 import { getEnderecoPorCEP } from "../../services/cep.service";
 import Botao from "../../components/Botao";
 import { BUTTON_TYPE, BUTTON_STYLE } from "../../components/Botao/constants";
+import { postFormulario } from "../../services/formulario.service";
 
 const onSubmit = async (values) => {
+  const payload = { dados: values };
+  const response = await postFormulario(payload);
+  console.log(response);
   window.location.href = "/cadastro-sucesso";
 };
 
@@ -41,13 +45,13 @@ export const Formulario = () => {
       <Form
         onSubmit={onSubmit}
         initialValues={{
-          nacionalidade: "Brasil",
-          nacionalidade_filiacao_1: "Brasil",
-          nacionalidade_filiacao_2: "Brasil",
-          uf: "São Paulo",
-          municipio: "São Paulo",
-          necessidade_especial: "0",
-          consta_certidao_filiacao_2: true,
+          nacionalidade_crianca: "Brasil",
+          filiacao1_nacionalidade: "Brasil",
+          filiacao2_nacionalidade: "Brasil",
+          uf_nasc_crianca: "São Paulo",
+          municipio_nasc_crianca: "São Paulo",
+          tem_nee: "false",
+          filiacao2_consta: true,
         }}
         render={({ handleSubmit, form, submitting, pristine, values }) => (
           <form onSubmit={handleSubmit}>
@@ -77,7 +81,7 @@ export const Formulario = () => {
                         name="sexo_crianca"
                         component="input"
                         type="radio"
-                        value="masculino"
+                        value="M"
                       />{" "}
                       Masculino
                     </label>
@@ -86,7 +90,7 @@ export const Formulario = () => {
                         name="sexo_crianca"
                         component="input"
                         type="radio"
-                        value="feminino"
+                        value="F"
                       />{" "}
                       Feminino
                     </label>
@@ -96,7 +100,7 @@ export const Formulario = () => {
                   <Field
                     label="Data de nascimento da criança"
                     component={InputComData}
-                    name="data_nascimento"
+                    name="dt_nasc_crianca"
                     showMonthDropdown
                     showYearDropdown
                     required
@@ -107,12 +111,14 @@ export const Formulario = () => {
               <div className="row">
                 <div
                   className={
-                    values.nacionalidade === "Brasil" ? "col-12" : "col-6"
+                    values.nacionalidade_crianca === "Brasil"
+                      ? "col-12"
+                      : "col-6"
                   }
                 >
                   <Field
                     component={Select}
-                    name="nacionalidade"
+                    name="nacionalidade_crianca"
                     label="Nacionalidade da criança"
                     options={NACIONALIDADES}
                     required
@@ -120,7 +126,7 @@ export const Formulario = () => {
                     naoDesabilitarPrimeiraOpcao
                   />
                 </div>
-                {values.nacionalidade !== "Brasil" && (
+                {values.nacionalidade_crianca !== "Brasil" && (
                   <div className="col-6">
                     <Field
                       label="Data de entrada no país da criança"
@@ -133,12 +139,12 @@ export const Formulario = () => {
                   </div>
                 )}
               </div>
-              {values.nacionalidade === "Brasil" && (
+              {values.nacionalidade_crianca === "Brasil" && (
                 <div className="row">
                   <div className="col-6">
                     <Field
                       component={Select}
-                      name="uf"
+                      name="uf_nasc_crianca"
                       label="UF de Nascimento da Criança"
                       options={UF_ESTADOS}
                       required
@@ -149,10 +155,12 @@ export const Formulario = () => {
                   <div className="col-6">
                     <Field
                       component={Select}
-                      name="municipio"
+                      name="municipio_nasc_crianca"
                       label="Município de Nascimento da Criança"
                       options={arrayToOptions(
-                        UF_ESTADOS.find((el) => el.nome === values.uf).cidades
+                        UF_ESTADOS.find(
+                          (el) => el.nome === values.uf_nasc_crianca
+                        ).cidades
                       )}
                       required
                       validate={required}
@@ -169,46 +177,46 @@ export const Formulario = () => {
                   <div>
                     <label>
                       <Field
-                        name="raca"
+                        name="raca_cor_crianca"
                         component="input"
                         type="radio"
-                        value="amarela"
+                        value="1"
                       />{" "}
                       Amarela
                     </label>
                     <label className="ml-3">
                       <Field
-                        name="raca"
+                        name="raca_cor_crianca"
                         component="input"
                         type="radio"
-                        value="branca"
+                        value="2"
                       />{" "}
                       Branca
                     </label>
                     <label className="ml-3">
                       <Field
-                        name="raca"
+                        name="raca_cor_crianca"
                         component="input"
                         type="radio"
-                        value="parda"
+                        value="3"
                       />{" "}
                       Parda
                     </label>
                     <label className="ml-3">
                       <Field
-                        name="raca"
+                        name="raca_cor_crianca"
                         component="input"
                         type="radio"
-                        value="preta"
+                        value="4"
                       />{" "}
                       Preta
                     </label>
                     <label className="ml-3">
                       <Field
-                        name="raca"
+                        name="raca_cor_crianca"
                         component="input"
                         type="radio"
-                        value="nao-declarada"
+                        value="5"
                       />{" "}
                       Não declarada
                     </label>
@@ -223,29 +231,29 @@ export const Formulario = () => {
                   <div>
                     <label>
                       <Field
-                        name="necessidade_especial"
+                        name="tem_nee"
                         component="input"
                         type="radio"
-                        value="1"
+                        value="true"
                       />{" "}
                       Sim
                     </label>
                     <label className="ml-3">
                       <Field
-                        name="necessidade_especial"
+                        name="tem_nee"
                         component="input"
                         type="radio"
-                        value="0"
+                        value="false"
                       />{" "}
                       Não
                     </label>
                   </div>
                 </div>
-                {values.necessidade_especial === "1" && (
+                {values.tem_nee === "true" && (
                   <div className="col-6">
                     <Field
                       component={Select}
-                      name="tipo_necessidade_especial"
+                      name="tipo_nee"
                       label="Tipo de Necessidade Especial"
                       options={arrayToOptions(NECESSIDADES_ESPECIAIS)}
                       required
@@ -330,7 +338,7 @@ export const Formulario = () => {
               <h2>Filiação 1 (Preferencialmente a Mãe)</h2>
               <Field
                 label="Nome Completo"
-                name="nome_filiacao_1"
+                name="filiacao1_nome"
                 component={InputText}
                 type="text"
                 placeholder="Nome completo"
@@ -349,19 +357,19 @@ export const Formulario = () => {
                   <div>
                     <label>
                       <Field
-                        name="falecido_filiacao_1"
+                        name="filiacao1_falecido"
                         component="input"
                         type="radio"
-                        value="1"
+                        value="true"
                       />{" "}
                       Sim
                     </label>
                     <label className="ml-3">
                       <Field
-                        name="falecido_filiacao_1"
+                        name="filiacao1_falecido"
                         component="input"
                         type="radio"
-                        value="0"
+                        value="false"
                       />{" "}
                       Não
                     </label>
@@ -374,19 +382,19 @@ export const Formulario = () => {
                   <div>
                     <label>
                       <Field
-                        name="sexo_filiacao_1"
+                        name="filiacao1_sexo"
                         component="input"
                         type="radio"
-                        value="masculino"
+                        value="M"
                       />{" "}
                       Masculino
                     </label>
                     <label className="ml-3">
                       <Field
-                        name="sexo_filiacao_1"
+                        name="filiacao1_sexo"
                         component="input"
                         type="radio"
-                        value="feminino"
+                        value="F"
                       />{" "}
                       Feminino
                     </label>
@@ -395,7 +403,7 @@ export const Formulario = () => {
                 <div className="col-4">
                   <Field
                     component={Select}
-                    name="nacionalidade_filiacao_1"
+                    name="filiacao1_nacionalidade"
                     label="Nacionalidade"
                     options={NACIONALIDADES}
                     required
@@ -408,18 +416,18 @@ export const Formulario = () => {
                 Filiação 2 (Preferencialmente o Pai){" "}
                 <label className="ml-2">
                   <Field
-                    name="consta_certidao_filiacao_2"
+                    name="filiacao2_consta"
                     component="input"
                     type="checkbox"
                   />{" "}
                   consta na certidão
                 </label>
               </h2>
-              {values.consta_certidao_filiacao_2 && (
+              {values.filiacao2_consta && (
                 <Fragment>
                   <Field
                     label="Nome Completo"
-                    name="nome_filiacao_2"
+                    name="filiacao2_nome"
                     component={InputText}
                     type="text"
                     placeholder="Nome completo"
@@ -438,19 +446,19 @@ export const Formulario = () => {
                       <div>
                         <label>
                           <Field
-                            name="falecido_filiacao_2"
+                            name="filiacao2_falecido"
                             component="input"
                             type="radio"
-                            value="1"
+                            value="true"
                           />{" "}
                           Sim
                         </label>
                         <label className="ml-3">
                           <Field
-                            name="falecido_filiacao_2"
+                            name="filiacao2_falecido"
                             component="input"
                             type="radio"
-                            value="0"
+                            value="false"
                           />{" "}
                           Não
                         </label>
@@ -463,19 +471,19 @@ export const Formulario = () => {
                       <div>
                         <label>
                           <Field
-                            name="sexo_filiacao_2"
+                            name="filiacao2_sexo"
                             component="input"
                             type="radio"
-                            value="masculino"
+                            value="M"
                           />{" "}
                           Masculino
                         </label>
                         <label className="ml-3">
                           <Field
-                            name="sexo_filiacao_2"
+                            name="filiacao2_sexo"
                             component="input"
                             type="radio"
-                            value="feminino"
+                            value="F"
                           />{" "}
                           Feminino
                         </label>
@@ -484,7 +492,7 @@ export const Formulario = () => {
                     <div className="col-4">
                       <Field
                         component={Select}
-                        name="nacionalidade_filiacao_2"
+                        name="filiacao2_nacionalidade"
                         label="Nacionalidade"
                         options={NACIONALIDADES}
                         required
@@ -535,9 +543,9 @@ export const Formulario = () => {
                   <OnChange name="tipo_responsavel">
                     {async (value, previous) => {
                       if (value === "1") {
-                        values.nome_responsavel = values.nome_filiacao_1;
+                        values.nome_responsavel = values.filiacao1_nome;
                       } else if (value === "2") {
-                        values.nome_responsavel = values.nome_filiacao_2;
+                        values.nome_responsavel = values.filiacao2_nome;
                       }
                     }}
                   </OnChange>
@@ -574,8 +582,8 @@ export const Formulario = () => {
                 toUppercaseActive
                 disabled={
                   !values.tipo_responsavel ||
-                  values.tipo_responsavel === "0" ||
-                  values.tipo_responsavel === "1"
+                  values.tipo_responsavel === "1" ||
+                  values.tipo_responsavel === "2"
                 }
               />
               <div className="row">
@@ -606,7 +614,7 @@ export const Formulario = () => {
                 component={InputText}
                 placeholder={"E-mail do responsável"}
                 label="E-mail do responsável"
-                name="email"
+                name="email_responsavel"
                 required
                 type="text"
                 validate={composeValidators(required, validaEmail)}
