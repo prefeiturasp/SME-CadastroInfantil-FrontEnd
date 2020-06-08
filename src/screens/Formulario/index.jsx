@@ -201,7 +201,7 @@ export const Formulario = () => {
                         type="radio"
                         value="3"
                       />{" "}
-                      Parda
+                      Indígena
                     </label>
                     <label className="ml-3">
                       <Field
@@ -210,7 +210,7 @@ export const Formulario = () => {
                         type="radio"
                         value="4"
                       />{" "}
-                      Preta
+                      Parda
                     </label>
                     <label className="ml-3">
                       <Field
@@ -218,6 +218,15 @@ export const Formulario = () => {
                         component="input"
                         type="radio"
                         value="5"
+                      />{" "}
+                      Preta
+                    </label>
+                    <label className="ml-3">
+                      <Field
+                        name="raca_cor_crianca"
+                        component="input"
+                        type="radio"
+                        value="6"
                       />{" "}
                       Não declarada
                     </label>
@@ -227,7 +236,7 @@ export const Formulario = () => {
               <div className="row mt-2">
                 <div className="col-6">
                   <label>
-                    <span>* </span>Possui necessidade especial?
+                    <span>* </span>Possui alguma deficiência?
                   </label>
                   <div>
                     <label>
@@ -255,7 +264,7 @@ export const Formulario = () => {
                     <Field
                       component={Select}
                       name="tipo_nee"
-                      label="Tipo de Necessidade Especial"
+                      label="Tipo de Deficiência"
                       options={arrayToOptions(NECESSIDADES_ESPECIAIS)}
                       required
                       validate={required}
@@ -519,6 +528,10 @@ export const Formulario = () => {
                         component="input"
                         type="radio"
                         value="1"
+                        disabled={!values.nome_filiacao_1}
+                        onClick={() =>
+                          (values.nome_responsavel = values.nome_filiacao_1)
+                        }
                       />{" "}
                       Filiação 1
                     </label>
@@ -528,6 +541,10 @@ export const Formulario = () => {
                         component="input"
                         type="radio"
                         value="2"
+                        disabled={!values.nome_filiacao_2}
+                        onClick={() =>
+                          (values.nome_responsavel = values.nome_filiacao_2)
+                        }
                       />{" "}
                       Filiação 2
                     </label>
@@ -537,19 +554,11 @@ export const Formulario = () => {
                         component="input"
                         type="radio"
                         value="3"
+                        onClick={() => (values.nome_responsavel = "")}
                       />{" "}
                       Outro
                     </label>
                   </div>
-                  <OnChange name="tipo_responsavel">
-                    {async (value, previous) => {
-                      if (value === "1") {
-                        values.nome_responsavel = values.filiacao1_nome;
-                      } else if (value === "2") {
-                        values.nome_responsavel = values.filiacao2_nome;
-                      }
-                    }}
-                  </OnChange>
                 </div>
                 {values.tipo_responsavel === "3" && (
                   <div className="col-6">
@@ -581,11 +590,6 @@ export const Formulario = () => {
                   somenteCaracteresEEspacos
                 )}
                 toUppercaseActive
-                disabled={
-                  !values.tipo_responsavel ||
-                  values.tipo_responsavel === "1" ||
-                  values.tipo_responsavel === "2"
-                }
               />
               <div className="row">
                 <div className="col-6">
@@ -612,27 +616,38 @@ export const Formulario = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="col-7">
+                <div className="col-12">
                   <Field
                     component={InputText}
                     placeholder={"E-mail do responsável"}
                     label="E-mail do responsável"
-                    name="email_responsavel"
-                    required
+                    name="email"
                     type="text"
-                    validate={composeValidators(required, validaEmail)}
+                    validate={composeValidators(validaEmail)}
                   />
                 </div>
-                <div className="col-5">
+              </div>
+              <div className="row">
+                <div className="col-6">
                   <Field
                     component={InputText}
-                    placeholder={"Telefone do responsável"}
-                    label="Telefone do responsável"
+                    placeholder={"Telefone 1 do responsável"}
+                    label="Telefone 1 do responsável"
                     parse={formatString("(99) 99999-9999")}
                     name="telefone_responsavel"
                     required
                     type="text"
                     validate={composeValidators(required)}
+                  />
+                </div>
+                <div className="col-6">
+                  <Field
+                    component={InputText}
+                    placeholder={"Telefone 2 do responsável"}
+                    label="Telefone 2 do responsável"
+                    parse={formatString("(99) 99999-9999")}
+                    name="telefone_responsavel_2"
+                    type="text"
                   />
                 </div>
               </div>
