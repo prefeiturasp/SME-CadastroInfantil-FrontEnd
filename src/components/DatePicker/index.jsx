@@ -63,7 +63,6 @@ export class InputComData extends Component {
 
   render() {
     const {
-      activeCalendar,
       className,
       dateFormat,
       disabled,
@@ -82,14 +81,17 @@ export class InputComData extends Component {
       required,
       showMonthDropdown,
       showYearDropdown,
-      textoLabel,
     } = this.props;
     return (
       <div className="datepicker">
         {label && [
-          required && <span className="required-asterisk">*</span>,
+          required && (
+            <span key={1} className="required-asterisk">
+              *
+            </span>
+          ),
           <label
-            key={1}
+            key={2}
             htmlFor={name}
             className={`col-form-label ${labelClassName}`}
           >

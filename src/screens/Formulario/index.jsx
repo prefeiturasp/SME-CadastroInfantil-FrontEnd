@@ -510,6 +510,7 @@ export const Formulario = () => {
                         component="input"
                         type="radio"
                         value="1"
+                        disabled={!values.nome_filiacao_1}
                         onClick={() =>
                           (values.nome_responsavel = values.nome_filiacao_1)
                         }
@@ -522,6 +523,7 @@ export const Formulario = () => {
                         component="input"
                         type="radio"
                         value="2"
+                        disabled={!values.nome_filiacao_2}
                         onClick={() =>
                           (values.nome_responsavel = values.nome_filiacao_2)
                         }
