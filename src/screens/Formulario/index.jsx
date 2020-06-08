@@ -24,13 +24,7 @@ import { getEnderecoPorCEP } from "../../services/cep.service";
 import Botao from "../../components/Botao";
 import { BUTTON_TYPE, BUTTON_STYLE } from "../../components/Botao/constants";
 import { postFormulario } from "../../services/formulario.service";
-
-const onSubmit = async (values) => {
-  const payload = { dados: values };
-  const response = await postFormulario(payload);
-  console.log(response);
-  window.location.href = "/cadastro-sucesso";
-};
+import { formataPayload } from "./helper";
 
 export const Formulario = () => {
   const [files, setFiles] = useState("");
@@ -38,6 +32,13 @@ export const Formulario = () => {
   const removeFile = (index) => {
     files.splice(index, 1);
     setFiles(files);
+  };
+
+  const onSubmit = async (values) => {
+    const payload = { dados: formataPayload(values, files) };
+    const response = await postFormulario(payload);
+    console.log(response);
+    window.location.href = "/cadastro-sucesso";
   };
 
   return (
