@@ -1,0 +1,16 @@
+export const NECESSIDADES_ESPECIAIS = [
+  "Altas habilidades/superdotação",
+  "Autismo",
+  "Baixa Visão",
+  "Visão Subnormal",
+  "Cegueira",
+  "Deficiência Física - Cadeirante",
+  "Deficiência Física - Não Cadeirante",
+  "Deficiência Intelectual",
+  "Síndrome de Asperger",
+  "Síndrome de Rett",
+  "Surdez leve ou moderada",
+  "Surdez profunda ou severa",
+  "Surdo e Cegueira",
+  "Transtorno Desintegrativo da infância",
+];

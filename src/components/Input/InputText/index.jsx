@@ -25,6 +25,7 @@ export const InputText = (props) => {
     maxlength,
     pattern,
     icone,
+    toUppercaseActive,
   } = props;
   return (
     <div className={`input ${icone && "icon"}`}>
@@ -62,7 +63,9 @@ export const InputText = (props) => {
         pattern={pattern}
         maxLength={maxlength}
         onInput={(e) => {
-          e.target.value = e.target.value.toUpperCase();
+          e.target.value = toUppercaseActive
+            ? e.target.value.toUpperCase()
+            : e.target.value;
         }}
       />
       {acrescentarAppend && (

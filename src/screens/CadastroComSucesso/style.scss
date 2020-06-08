@@ -1,0 +1,11 @@
+@import "../../styles/variables.scss";
+
+.card.card-success {
+  text-align: center;
+  background-color: $green;
+  color: $white;
+  padding: 10px;
+  span {
+    font-weight: bold;
+  }
+}
