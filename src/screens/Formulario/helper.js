@@ -15,6 +15,12 @@ export const formataPayload = (payload, files) => {
     .split("/")
     .reverse()
     .join("-");
+  if (payload.dt_entrada_brasil) {
+    payload.dt_entrada_brasil = payload.dt_entrada_brasil
+    .split("/")
+    .reverse()
+    .join("-");
+  }
   payload.certidao_crianca = files[0].arquivo;
   payload.email_responsavel = payload.email_responsavel || "";
   payload.tem_nee = payload.tem_nee === "true";
