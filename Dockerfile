@@ -11,9 +11,9 @@ RUN export NODE_PATH=src/ \
 # https://stackoverflow.com/questions/48595829/how-to-pass-environment-variables-to-a-frontend-web-application
 
 FROM nginx:alpine
-COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+#COPY entrypoint.sh /app/entrypoint.sh
+#RUN chmod +x /app/entrypoint.sh
 COPY --from=builder /app/build /usr/share/nginx/html
 COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
-ENTRYPOINT ["/app/entrypoint.sh"]
+#ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
