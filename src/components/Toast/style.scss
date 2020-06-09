@@ -4,6 +4,12 @@
   font-family: Roboto;
 }
 
+.Toastify__toast {
+  transform: unset !important;
+  margin-left: 40%;
+  margin-right: -43%;
+}
+
 .Toastify__toast-container--top-center {
   font-weight: 500;
   font-family: Roboto;
