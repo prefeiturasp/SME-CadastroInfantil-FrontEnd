@@ -18,7 +18,7 @@ import {
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
 import { UF_ESTADOS } from "../../constants/UF_ESTADOS";
-import { arrayToOptions } from "../../helpers/helpers";
+import { arrayToOptions, getError } from "../../helpers/helpers";
 import { NECESSIDADES_ESPECIAIS } from "../../constants/NECESSIDADES_ESPECIAIS";
 import formatString from "format-string-by-pattern";
 import { getEnderecoPorCEP } from "../../services/cep.service";
@@ -38,25 +38,54 @@ export const Formulario = () => {
   const [files, setFiles] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [protocolo, setProtocolo] = useState("");
+  const [stateValues, setStateValues] = useState({
+    nacionalidade_crianca: "Brasil",
+    filiacao1_nacionalidade: "Brasil",
+    filiacao2_nacionalidade: "Brasil",
+    uf_nasc_crianca: "São Paulo",
+    municipio_nasc_crianca: "São Paulo",
+    tem_nee: "false",
+    filiacao2_consta: true,
+  });
 
   const removeFile = (index) => {
     files.splice(index, 1);
     setFiles(files);
   };
 
-  const onSubmit = async (values) => {
+  const onSubmit = (values) => {
+    setSubmitted(true);
     if (files.length === 0) {
       toastWarn("Anexe a Certidão de nascimento da criança");
     } else {
       const payload = { dados: formataPayload(values, files) };
-      const response = await postFormulario(payload);
-      if (response.status === HTTP_STATUS.CREATED) {
-        setSubmitted(true);
-        toastSuccess("Cadastrado com sucesso");
-        setProtocolo(response.data.protocolo);
-      } else {
-        setSubmitted(false);
-      }
+      postFormulario(payload).then((response) => {
+        if (response.status === HTTP_STATUS.CREATED) {
+          setSubmitted(true);
+          toastSuccess("Cadastrado com sucesso");
+          setProtocolo(response.data.protocolo);
+        } else {
+          toastError(getError(response.data));
+          setStateValues({
+            ...values,
+            dt_nasc_crianca: values.dt_nasc_crianca
+              .split("-")
+              .reverse()
+              .join("/"),
+            dt_nasc_responsavel: values.dt_nasc_responsavel
+              .split("-")
+              .reverse()
+              .join("/"),
+            dt_entrada_brasil: values.dt_entrada_brasil
+              ? values.dt_entrada_brasil.split("-").reverse().join("/")
+              : null,
+            tem_nee: values.tem_nee ? "true" : "false",
+            filiacao1_falecido: values.filiacao1_falecido ? "true" : "false",
+            filiacao2_falecido: values.filiacao2_falecido ? "true" : "false",
+          });
+          setSubmitted(false);
+        }
+      });
     }
   };
 
@@ -67,15 +96,7 @@ export const Formulario = () => {
       ) : (
         <Form
           onSubmit={onSubmit}
-          initialValues={{
-            nacionalidade_crianca: "Brasil",
-            filiacao1_nacionalidade: "Brasil",
-            filiacao2_nacionalidade: "Brasil",
-            uf_nasc_crianca: "São Paulo",
-            municipio_nasc_crianca: "São Paulo",
-            tem_nee: "false",
-            filiacao2_consta: true,
-          }}
+          initialValues={stateValues}
           render={({ handleSubmit, form, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
               <section className="crianca">
@@ -84,6 +105,7 @@ export const Formulario = () => {
                   label="Nome Completo da criança"
                   name="nome_crianca"
                   component={InputText}
+                  maxlength={255}
                   type="text"
                   placeholder="Nome completo da criança"
                   required
@@ -374,6 +396,7 @@ export const Formulario = () => {
                   <div className="col-4">
                     <Field
                       component={InputText}
+                      maxlength={255}
                       label="Número"
                       name="numero_moradia"
                       required
@@ -384,6 +407,7 @@ export const Formulario = () => {
                   <div className="col-8">
                     <Field
                       component={InputText}
+                      maxlength={255}
                       label="Complemento"
                       name="complemento_moradia"
                       toUppercaseActive
@@ -411,6 +435,7 @@ export const Formulario = () => {
                   label="Nome Completo"
                   name="filiacao1_nome"
                   component={InputText}
+                  maxlength={255}
                   type="text"
                   placeholder="Nome completo"
                   required
@@ -504,6 +529,7 @@ export const Formulario = () => {
                       label="Nome Completo"
                       name="filiacao2_nome"
                       component={InputText}
+                      maxlength={255}
                       type="text"
                       placeholder="Nome completo"
                       required
@@ -645,6 +671,7 @@ export const Formulario = () => {
                         label="Grau de Parentesco com a Criança"
                         name="parentesco_responsavel"
                         component={InputText}
+                        maxlength={255}
                         type="text"
                         placeholder="Ex: Tia, Avó"
                         required
@@ -661,6 +688,7 @@ export const Formulario = () => {
                   label="Nome Completo do Responsável"
                   name="nome_responsavel"
                   component={InputText}
+                  maxlength={255}
                   type="text"
                   placeholder="Nome completo do responsável"
                   required

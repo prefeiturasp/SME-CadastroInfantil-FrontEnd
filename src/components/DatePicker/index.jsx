@@ -38,12 +38,7 @@ export class InputComData extends Component {
     showHelpText: true,
   };
 
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(date) {
+  handleChange = (date) => {
     this.props.input.onChange(
       moment(date).format(this.props.dateFormat || this.defaultProps.dateFormat)
     );
@@ -118,7 +113,7 @@ export class InputComData extends Component {
               meta.touched && meta.error && "invalid-field"
             }`}
             ref={(c) => (this._calendar = c)}
-            onChange={this.handleChange}
+            onChange={(value) => this.handleChange(value)}
             locale={ptBR}
             name={name}
           />
