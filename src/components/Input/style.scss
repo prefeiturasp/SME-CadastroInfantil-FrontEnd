@@ -1,0 +1,44 @@
+@import "../../styles/variables.scss";
+
+div.input {
+  font-size: 14px;
+  &.icon {
+    display: inline-flex;
+    input {
+      width: 300px;
+    }
+    i {
+      color: $blue;
+      z-index: 1;
+      margin-left: -30px;
+      margin-top: 10px;
+    }
+  }
+  span.required-asterisk {
+    color: $red;
+    padding-right: 5px;
+  }
+  label {
+    font-weight: 500;
+    color: $gray;
+  }
+  input {
+    font-size: 14px;
+    color: $blackInput;
+    height: 38px;
+    font-weight: normal;
+    &:focus {
+      color: $blackInput;
+    }
+    &::placeholder {
+      color: $grayPlaceholder;
+    }
+    &.invalid-field:not(:focus) {
+      box-shadow: none;
+      border-color: $red;
+    }
+    &:disabled {
+      background-color: $grayDisabled;
+    }
+  }
+}
