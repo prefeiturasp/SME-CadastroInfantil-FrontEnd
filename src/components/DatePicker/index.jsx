@@ -35,6 +35,7 @@ export class InputComData extends Component {
     fullScreen: false,
     inline: false,
     hasIcon: false,
+    showHelpText: true,
   };
 
   constructor(props) {
@@ -81,6 +82,7 @@ export class InputComData extends Component {
       required,
       showMonthDropdown,
       showYearDropdown,
+      showHelpText,
     } = this.props;
     return (
       <div className="datepicker">
@@ -124,7 +126,7 @@ export class InputComData extends Component {
             <i onClick={this.openDatepicker} className="fas fa-calendar-alt" />
           )}
         </div>
-        <HelpText helpText={helpText} />
+        {showHelpText && <HelpText helpText={helpText} />}
         <InputErroMensagem meta={meta} />
       </div>
     );

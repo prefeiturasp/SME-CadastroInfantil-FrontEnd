@@ -4,6 +4,7 @@ export const formataPayload = (payload, files) => {
   payload.telefone_responsavel = payload.telefone_responsavel
     .match(/\d/g)
     .join("");
+  payload.telefone_opcional = payload.telefone_opcional.match(/\d/g).join("");
   payload.dt_nasc_crianca = payload.dt_nasc_crianca
     .split("/")
     .reverse()
@@ -13,5 +14,10 @@ export const formataPayload = (payload, files) => {
     .reverse()
     .join("-");
   payload.certidao_crianca = files[0].arquivo;
+  payload.email_responsavel = payload.email_responsavel || "";
+  payload.tem_nee = payload.tem_nee === "true";
+  payload.filiacao1_falecido = payload.filiacao1_falecido === "true";
+  payload.filiacao2_falecido = payload.filiacao2_falecido === "true";
+  payload.filiacao2_sexo = payload.filiacao2_sexo || "";
   return payload;
 };
