@@ -27,7 +27,11 @@ import { BUTTON_TYPE, BUTTON_STYLE } from "../../components/Botao/constants";
 import { postFormulario } from "../../services/formulario.service";
 import { formataPayload } from "./helper";
 import "./style.scss";
-import { toastError, toastSuccess } from "../../components/Toast/dialogs";
+import {
+  toastError,
+  toastSuccess,
+  toastWarn,
+} from "../../components/Toast/dialogs";
 import CadastroComSucesso from "../CadastroComSucesso";
 
 export const Formulario = () => {
@@ -42,12 +46,12 @@ export const Formulario = () => {
 
   const onSubmit = async (values) => {
     if (files.length === 0) {
-      toastError("Anexe a Certidão de nascimento da criança");
+      toastWarn("Anexe a Certidão de nascimento da criança");
     } else {
-      setSubmitted(true);
       const payload = { dados: formataPayload(values, files) };
       const response = await postFormulario(payload);
       if (response.status === HTTP_STATUS.CREATED) {
+        setSubmitted(true);
         toastSuccess("Cadastrado com sucesso");
         setProtocolo(response.data.protocolo);
       } else {
@@ -118,20 +122,22 @@ export const Formulario = () => {
                     </div>
                   </div>
                   <div className="col-6">
-                    <Field
-                      label="Data de nascimento da criança"
-                      component={InputComData}
-                      name="dt_nasc_crianca"
-                      showMonthDropdown
-                      showYearDropdown
-                      minDate={moment(
-                        `${moment().year() - 5}-03-31`,
-                        "YYYY-MM-DD"
-                      ).toDate()}
-                      maxDate={moment().toDate()}
-                      required
-                      validate={required}
-                    />
+                    {!submitting && (
+                      <Field
+                        label="Data de nascimento da criança"
+                        component={InputComData}
+                        name="dt_nasc_crianca"
+                        showMonthDropdown
+                        showYearDropdown
+                        minDate={moment(
+                          `${moment().year() - 5}-03-31`,
+                          "YYYY-MM-DD"
+                        ).toDate()}
+                        maxDate={moment().toDate()}
+                        required
+                        validate={required}
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="row">
@@ -154,23 +160,25 @@ export const Formulario = () => {
                   </div>
                   {values.nacionalidade_crianca !== "Brasil" && (
                     <div className="col-6">
-                      <Field
-                        label="Data de entrada no país da criança"
-                        component={InputComData}
-                        name="dt_entrada_brasil"
-                        minDate={
-                          moment(values.dt_nasc_crianca, "DD-MM-YYYY")._d
-                        }
-                        maxDate={moment().toDate()}
-                        showMonthDropdown
-                        showYearDropdown
-                        required
-                        disabled={!values.dt_nasc_crianca}
-                        showHelpText={!values.dt_nasc_crianca}
-                        helpText={
-                          "Para habilitar este campo, preencha a data de nascimento da criança"
-                        }
-                      />
+                      {!submitting && (
+                        <Field
+                          label="Data de entrada no país da criança"
+                          component={InputComData}
+                          name="dt_entrada_brasil"
+                          minDate={
+                            moment(values.dt_nasc_crianca, "DD-MM-YYYY")._d
+                          }
+                          maxDate={moment().toDate()}
+                          showMonthDropdown
+                          showYearDropdown
+                          required
+                          disabled={!values.dt_nasc_crianca}
+                          showHelpText={!values.dt_nasc_crianca}
+                          helpText={
+                            "Para habilitar este campo, preencha a data de nascimento da criança"
+                          }
+                        />
+                      )}
                     </div>
                   )}
                 </div>
@@ -675,27 +683,29 @@ export const Formulario = () => {
                     />
                   </div>
                   <div className="col-6">
-                    <Field
-                      label="Data de nascimento do responsável"
-                      component={InputComData}
-                      name="dt_nasc_responsavel"
-                      maxDate={
-                        moment(values.dt_nasc_crianca, "DD-MM-YYYY").subtract(
-                          12,
-                          "years"
-                        )._d
-                      }
-                      showMonthDropdown
-                      showYearDropdown
-                      required
-                      validate={required}
-                      disabled={!values.dt_nasc_crianca}
-                      helpText={
-                        values.dt_nasc_crianca
-                          ? "Ao menos 12 anos mais velho que a criança"
-                          : "Para habilitar este campo, preencha a data de nascimento da criança"
-                      }
-                    />
+                    {!submitting && (
+                      <Field
+                        label="Data de nascimento do responsável"
+                        component={InputComData}
+                        name="dt_nasc_responsavel"
+                        maxDate={
+                          moment(values.dt_nasc_crianca, "DD-MM-YYYY").subtract(
+                            12,
+                            "years"
+                          )._d
+                        }
+                        showMonthDropdown
+                        showYearDropdown
+                        required
+                        validate={required}
+                        disabled={!values.dt_nasc_crianca}
+                        helpText={
+                          values.dt_nasc_crianca
+                            ? "Ao menos 12 anos mais velho que a criança"
+                            : "Para habilitar este campo, preencha a data de nascimento da criança"
+                        }
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="row">

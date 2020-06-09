@@ -21,5 +21,9 @@ export const formataPayload = (payload, files) => {
   payload.filiacao1_falecido = payload.filiacao1_falecido === "true";
   payload.filiacao2_falecido = payload.filiacao2_falecido === "true";
   payload.filiacao2_sexo = payload.filiacao2_sexo || "";
+  if (!payload.filiacao2_consta) {
+    payload.filiacao2_nacionalidade = "";
+    payload.filiacao2_nome = "";
+  }
   return payload;
 };

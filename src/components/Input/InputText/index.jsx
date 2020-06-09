@@ -52,6 +52,7 @@ export const InputText = (props) => {
           "invalid-field"
         }`}
         disabled={disabled}
+        autoComplete="new-password"
         min={min}
         max={max}
         name={name}
