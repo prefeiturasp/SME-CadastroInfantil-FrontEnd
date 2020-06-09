@@ -4,7 +4,9 @@ export const formataPayload = (payload, files) => {
   payload.telefone_responsavel = payload.telefone_responsavel
     .match(/\d/g)
     .join("");
-  payload.telefone_opcional = payload.telefone_opcional.match(/\d/g).join("");
+  if (payload.telefone_opcional) {
+    payload.telefone_opcional = payload.telefone_opcional.match(/\d/g).join("");
+  }
   payload.dt_nasc_crianca = payload.dt_nasc_crianca
     .split("/")
     .reverse()

@@ -31,7 +31,7 @@ import { toastError, toastSuccess } from "../../components/Toast/dialogs";
 import CadastroComSucesso from "../CadastroComSucesso";
 
 export const Formulario = () => {
-  const [files, setFiles] = useState("");
+  const [files, setFiles] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [protocolo, setProtocolo] = useState("");
 
@@ -41,14 +41,18 @@ export const Formulario = () => {
   };
 
   const onSubmit = async (values) => {
-    setSubmitted(true);
-    const payload = { dados: formataPayload(values, files) };
-    const response = await postFormulario(payload);
-    if (response.status === HTTP_STATUS.CREATED) {
-      toastSuccess("Cadastrado com sucesso");
-      setProtocolo(response.data.protocolo);
+    if (files.length === 0) {
+      toastError("Anexe a Certidão de nascimento da criança");
     } else {
-      setSubmitted(false);
+      setSubmitted(true);
+      const payload = { dados: formataPayload(values, files) };
+      const response = await postFormulario(payload);
+      if (response.status === HTTP_STATUS.CREATED) {
+        toastSuccess("Cadastrado com sucesso");
+        setProtocolo(response.data.protocolo);
+      } else {
+        setSubmitted(false);
+      }
     }
   };
 
@@ -154,7 +158,9 @@ export const Formulario = () => {
                         label="Data de entrada no país da criança"
                         component={InputComData}
                         name="dt_entrada_brasil"
-                        minDate={moment(values.dt_nasc_crianca, "DD-MM-YYYY")._d}
+                        minDate={
+                          moment(values.dt_nasc_crianca, "DD-MM-YYYY")._d
+                        }
                         maxDate={moment().toDate()}
                         showMonthDropdown
                         showYearDropdown
