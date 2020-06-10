@@ -121,7 +121,7 @@ export const Formulario = () => {
                   )}
                 />
                 <div className="row mt-2">
-                  <div className="col-6">
+                  <div className="col-sm-6 col-12">
                     <label>
                       <span>* </span>Sexo da criança
                     </label>
@@ -148,7 +148,7 @@ export const Formulario = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="col-6">
+                  <div className="col-sm-6 col-12">
                     {!submitting && (
                       <Field
                         label="Data de nascimento da criança"
@@ -172,7 +172,7 @@ export const Formulario = () => {
                     className={
                       values.nacionalidade_crianca === "Brasil"
                         ? "col-12"
-                        : "col-6"
+                        : "col-sm-6 col-12"
                     }
                   >
                     <Field
@@ -186,7 +186,7 @@ export const Formulario = () => {
                     />
                   </div>
                   {values.nacionalidade_crianca !== "Brasil" && (
-                    <div className="col-6">
+                    <div className="col-sm-6 col-12">
                       {!submitting && (
                         <Field
                           label="Data de entrada no país da criança"
@@ -211,7 +211,7 @@ export const Formulario = () => {
                 </div>
                 {values.nacionalidade_crianca === "Brasil" && (
                   <div className="row">
-                    <div className="col-6">
+                    <div className="col-sm-6 col-12">
                       <Field
                         component={Select}
                         name="uf_nasc_crianca"
@@ -222,7 +222,7 @@ export const Formulario = () => {
                         naoDesabilitarPrimeiraOpcao
                       />
                     </div>
-                    <div className="col-6">
+                    <div className="col-sm-6 col-12">
                       <Field
                         component={Select}
                         name="municipio_nasc_crianca"
@@ -309,7 +309,7 @@ export const Formulario = () => {
                   </div>
                 </div>
                 <div className="row mt-2">
-                  <div className="col-6">
+                  <div className="col-sm-6 col-12">
                     <label>
                       <span>* </span>Possui alguma deficiência?
                     </label>
@@ -337,7 +337,7 @@ export const Formulario = () => {
                     </div>
                   </div>
                   {values.tem_nee === "true" && (
-                    <div className="col-6">
+                    <div className="col-sm-6 col-12">
                       <Field
                         component={Select}
                         name="tipo_nee"
@@ -353,7 +353,7 @@ export const Formulario = () => {
                   )}
                 </div>
                 <div className="row">
-                  <div className="col-4">
+                  <div className="col-sm-4 col-12">
                     <Field
                       component={InputText}
                       parse={formatString("12345-678")}
@@ -388,7 +388,7 @@ export const Formulario = () => {
                       }}
                     </OnChange>
                   </div>
-                  <div className="col-8">
+                  <div className="col-sm-8 col-12">
                     <Field
                       component={InputText}
                       label="Endereço Residencial da Criança"
@@ -400,7 +400,7 @@ export const Formulario = () => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-4">
+                  <div className="col-sm-4 col-12">
                     <Field
                       component={InputText}
                       maxlength={255}
@@ -411,7 +411,7 @@ export const Formulario = () => {
                       toUppercaseActive
                     />
                   </div>
-                  <div className="col-8">
+                  <div className="col-sm-8 col-12">
                     <Field
                       component={InputText}
                       maxlength={20}
@@ -453,7 +453,7 @@ export const Formulario = () => {
                   toUppercaseActive
                 />
                 <div className="row mt-2">
-                  <div className="col-3">
+                  <div className="col-sm-3 col-12">
                     <label>
                       <span>* </span>Falecido?
                     </label>
@@ -480,7 +480,7 @@ export const Formulario = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="col-5">
+                  <div className="col-sm-5 col-12">
                     <label>
                       <span>* </span>Sexo
                     </label>
@@ -507,7 +507,7 @@ export const Formulario = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="col-4">
+                  <div className="col-sm-4 col-12">
                     <Field
                       component={Select}
                       name="filiacao1_nacionalidade"
@@ -547,7 +547,7 @@ export const Formulario = () => {
                       toUppercaseActive
                     />
                     <div className="row mt-2">
-                      <div className="col-3">
+                      <div className="col-sm-3 col-12">
                         <label>
                           <span>* </span>Falecido?
                         </label>
@@ -574,7 +574,7 @@ export const Formulario = () => {
                           </label>
                         </div>
                       </div>
-                      <div className="col-5">
+                      <div className="col-sm-5 col-12">
                         <label>
                           <span>* </span>Sexo
                         </label>
@@ -601,7 +601,7 @@ export const Formulario = () => {
                           </label>
                         </div>
                       </div>
-                      <div className="col-4">
+                      <div className="col-sm-4 col-12">
                         <Field
                           component={Select}
                           name="filiacao2_nacionalidade"
@@ -619,7 +619,7 @@ export const Formulario = () => {
               <section className="responsavel">
                 <h2>Responsável pela Criança</h2>
                 <div className="row mt-2">
-                  <div className="col-6">
+                  <div className="col-sm-6 col-12">
                     <label>
                       <span>* </span>Quem é o responsável?
                     </label>
@@ -673,7 +673,7 @@ export const Formulario = () => {
                     </div>
                   </div>
                   {values.tipo_responsavel === "3" && (
-                    <div className="col-6">
+                    <div className="col-sm-6 col-12">
                       <Field
                         label="Grau de Parentesco com a Criança"
                         name="parentesco_responsavel"
@@ -706,7 +706,7 @@ export const Formulario = () => {
                   toUppercaseActive
                 />
                 <div className="row">
-                  <div className="col-6">
+                  <div className="col-sm-6 col-12">
                     <Field
                       component={InputText}
                       parse={formatString("999.999.999-99")}
@@ -717,7 +717,7 @@ export const Formulario = () => {
                       placeholder="Digite o CPF"
                     />
                   </div>
-                  <div className="col-6">
+                  <div className="col-sm-6 col-12">
                     {!submitting && (
                       <Field
                         label="Data de nascimento do responsável"
@@ -756,7 +756,7 @@ export const Formulario = () => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-6">
+                  <div className="col-sm-6 col-12">
                     <Field
                       component={InputText}
                       placeholder={"Telefone 1 do responsável"}
@@ -773,7 +773,7 @@ export const Formulario = () => {
                       validate={composeValidators(required, telefoneLength)}
                     />
                   </div>
-                  <div className="col-6">
+                  <div className="col-sm-6 col-12">
                     <Field
                       component={InputText}
                       placeholder={"Telefone 2 do responsável"}
