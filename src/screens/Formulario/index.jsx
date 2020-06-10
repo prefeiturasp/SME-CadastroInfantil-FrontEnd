@@ -13,7 +13,7 @@ import {
   validaCEP,
   validaCPF,
   validaEmail,
-  telefoneLength,
+  validaTelefoneOuCelular,
 } from "../../helpers/validators";
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
@@ -151,7 +151,7 @@ export const Formulario = () => {
                   {values.nacionalidade_crianca !== "Brasil" && (
                     <div className="col-sm-6 col-12">
                       <Field
-                        label="Data de entrada no país da criança"
+                        label="Data de entrada da criança no país"
                         component={InputComData}
                         name="dt_entrada_brasil"
                         minDate={
@@ -340,6 +340,7 @@ export const Formulario = () => {
                       name="filiacao1_falecido"
                       label="Falecido?"
                       required
+                      onClickSim={() => (values.tipo_responsavel = null)}
                     />
                   </div>
                   <div className="col-sm-5 col-12">
@@ -393,6 +394,7 @@ export const Formulario = () => {
                         <RadioButtonSimNao
                           name="filiacao2_falecido"
                           label="Falecido?"
+                          onClickSim={() => (values.tipo_responsavel = null)}
                           required
                         />
                       </div>
@@ -570,7 +572,10 @@ export const Formulario = () => {
                       name="telefone_responsavel"
                       required
                       type="text"
-                      validate={composeValidators(required, telefoneLength)}
+                      validate={composeValidators(
+                        required,
+                        validaTelefoneOuCelular
+                      )}
                     />
                   </div>
                   <div className="col-sm-6 col-12">
@@ -586,7 +591,7 @@ export const Formulario = () => {
                       label="Telefone 2 do responsável"
                       name="telefone_opcional"
                       type="text"
-                      validate={composeValidators(telefoneLength)}
+                      validate={composeValidators(validaTelefoneOuCelular)}
                     />
                   </div>
                 </div>

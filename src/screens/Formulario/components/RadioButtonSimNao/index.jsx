@@ -2,7 +2,7 @@ import React from "react";
 import { Field } from "react-final-form";
 
 export const RadioButtonSimNao = (props) => {
-  const { required, label, name } = props;
+  const { required, label, name, onClickSim } = props;
   return (
     <div>
       <label>
@@ -17,6 +17,7 @@ export const RadioButtonSimNao = (props) => {
             type="radio"
             required
             value="true"
+            onClick={(e) => onClickSim && onClickSim(e)}
           />{" "}
           Sim
         </label>
