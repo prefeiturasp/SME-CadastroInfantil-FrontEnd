@@ -369,6 +369,11 @@ export const Formulario = () => {
                       name="filiacao2_consta"
                       component="input"
                       type="checkbox"
+                      onClick={() => {
+                        values.tipo_responsavel = values.filiacao2_consta
+                          ? null
+                          : values.tipo_responsavel;
+                      }}
                     />{" "}
                     consta na certidão
                   </label>
