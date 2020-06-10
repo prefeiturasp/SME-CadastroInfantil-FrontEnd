@@ -71,3 +71,7 @@ export const getError = obj => {
   }
   return result;
 };
+
+export const agregarDefault = lista => {
+  return [{ nome: "Selecione", uuid: "" }].concat(lista);
+};

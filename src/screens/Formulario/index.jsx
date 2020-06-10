@@ -19,7 +19,11 @@ import {
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
 import { UF_ESTADOS } from "../../constants/UF_ESTADOS";
-import { arrayToOptions, getError } from "../../helpers/helpers";
+import {
+  arrayToOptions,
+  getError,
+  agregarDefault,
+} from "../../helpers/helpers";
 import { NECESSIDADES_ESPECIAIS } from "../../constants/NECESSIDADES_ESPECIAIS";
 import formatString from "format-string-by-pattern";
 import { getEnderecoPorCEP } from "../../services/cep.service";
@@ -338,7 +342,9 @@ export const Formulario = () => {
                         component={Select}
                         name="tipo_nee"
                         label="Tipo de Deficiência"
-                        options={arrayToOptions(NECESSIDADES_ESPECIAIS)}
+                        options={agregarDefault(
+                          arrayToOptions(NECESSIDADES_ESPECIAIS)
+                        )}
                         required
                         validate={required}
                         naoDesabilitarPrimeiraOpcao
