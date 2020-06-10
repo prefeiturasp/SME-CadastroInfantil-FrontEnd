@@ -12,8 +12,8 @@ export const semCaracteresEspeciais = (value) =>
     : undefined;
 
 export const somenteCaracteresEEspacos = (value) =>
-  value && !/^[a-zA-Z ]+$/i.test(value)
-    ? `Somente caracteres sem acento e espaços`
+  value && !/^[a-zA-Z çÇ]+$/i.test(value)
+    ? `Somente caracteres sem acento, cedilha e espaços`
     : undefined;
 
 export const validaCEP = (value) => {
@@ -25,7 +25,10 @@ export const validaCPF = (value) => {
   let cpfValido = validarCPF(value);
   return cpfValido ? undefined : "CPF inválido";
 };
-export const validaEmail = value =>
+export const validaEmail = (value) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? "Email inválido"
     : undefined;
+
+export const telefoneLength = (value) =>
+  value && value.length < 14 ? `Ao menos 10 caracteres numéricos` : undefined;
