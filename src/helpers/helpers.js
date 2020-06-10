@@ -75,3 +75,7 @@ export const getError = obj => {
 export const agregarDefault = lista => {
   return [{ nome: "Selecione", uuid: "" }].concat(lista);
 };
+
+export const deepCopy = obj => {
+  return JSON.parse(JSON.stringify(obj));
+};

@@ -23,6 +23,7 @@ import {
   arrayToOptions,
   getError,
   agregarDefault,
+  deepCopy,
 } from "../../helpers/helpers";
 import { NECESSIDADES_ESPECIAIS } from "../../constants/NECESSIDADES_ESPECIAIS";
 import formatString from "format-string-by-pattern";
@@ -43,15 +44,6 @@ export const Formulario = () => {
   const [files, setFiles] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [protocolo, setProtocolo] = useState("");
-  const [stateValues, setStateValues] = useState({
-    nacionalidade_crianca: "Brasil",
-    filiacao1_nacionalidade: "Brasil",
-    filiacao2_nacionalidade: "Brasil",
-    uf_nasc_crianca: "São Paulo",
-    municipio_nasc_crianca: "São Paulo",
-    tem_nee: "false",
-    filiacao2_consta: true,
-  });
 
   const removeFile = (index) => {
     files.splice(index, 1);
@@ -62,8 +54,8 @@ export const Formulario = () => {
     if (files.length === 0) {
       toastWarn("Anexe a Certidão de nascimento da criança");
     } else {
-      setSubmitted(true);
-      const payload = { dados: formataPayload(values, files) };
+      let copyValues = deepCopy(values);
+      const payload = { dados: formataPayload(copyValues, files) };
       postFormulario(payload).then((response) => {
         if (response.status === HTTP_STATUS.CREATED) {
           setSubmitted(true);
@@ -71,24 +63,6 @@ export const Formulario = () => {
           setProtocolo(response.data.protocolo);
         } else {
           toastError(getError(response.data));
-          setStateValues({
-            ...values,
-            dt_nasc_crianca: values.dt_nasc_crianca
-              .split("-")
-              .reverse()
-              .join("/"),
-            dt_nasc_responsavel: values.dt_nasc_responsavel
-              .split("-")
-              .reverse()
-              .join("/"),
-            dt_entrada_brasil: values.dt_entrada_brasil
-              ? values.dt_entrada_brasil.split("-").reverse().join("/")
-              : null,
-            tem_nee: values.tem_nee ? "true" : "false",
-            filiacao1_falecido: values.filiacao1_falecido ? "true" : "false",
-            filiacao2_falecido: values.filiacao2_falecido ? "true" : "false",
-          });
-          setSubmitted(false);
         }
       });
     }
@@ -101,7 +75,15 @@ export const Formulario = () => {
       ) : (
         <Form
           onSubmit={onSubmit}
-          initialValues={stateValues}
+          initialValues={{
+            nacionalidade_crianca: "Brasil",
+            filiacao1_nacionalidade: "Brasil",
+            filiacao2_nacionalidade: "Brasil",
+            uf_nasc_crianca: "São Paulo",
+            municipio_nasc_crianca: "São Paulo",
+            tem_nee: "false",
+            filiacao2_consta: true,
+          }}
           render={({ handleSubmit, form, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
               <section className="crianca">
