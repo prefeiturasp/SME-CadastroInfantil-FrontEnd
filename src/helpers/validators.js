@@ -32,3 +32,9 @@ export const validaEmail = (value) =>
 
 export const telefoneLength = (value) =>
   value && value.length < 14 ? `Ao menos 10 caracteres numéricos` : undefined;
+
+export const validaTelefoneOuCelular = (value) =>
+  // value && /[^0-9 ]/i.test(value) ? "Somente números" : undefined;
+  value && !/^(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})$/g.test(value)
+    ? "Telefone/celular inválido"
+    : undefined;
