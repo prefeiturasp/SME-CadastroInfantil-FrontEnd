@@ -340,7 +340,10 @@ export const Formulario = () => {
                       name="filiacao1_falecido"
                       label="Falecido?"
                       required
-                      onClickSim={() => (values.tipo_responsavel = null)}
+                      onClickSim={() => {
+                        values.tipo_responsavel = null;
+                        values.nome_responsavel = null;
+                      }}
                     />
                   </div>
                   <div className="col-sm-5 col-12">
@@ -373,6 +376,9 @@ export const Formulario = () => {
                         values.tipo_responsavel = values.filiacao2_consta
                           ? null
                           : values.tipo_responsavel;
+                        values.nome_responsavel = values.filiacao2_consta
+                          ? null
+                          : values.nome_responsavel;
                       }}
                     />{" "}
                     consta na certidão
@@ -399,7 +405,10 @@ export const Formulario = () => {
                         <RadioButtonSimNao
                           name="filiacao2_falecido"
                           label="Falecido?"
-                          onClickSim={() => (values.tipo_responsavel = null)}
+                          onClickSim={() => {
+                            values.tipo_responsavel = null;
+                            values.nome_responsavel = null;
+                          }}
                           required
                         />
                       </div>
