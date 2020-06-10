@@ -14,6 +14,7 @@ import {
   validaCEP,
   validaCPF,
   validaEmail,
+  telefoneLength,
 } from "../../helpers/validators";
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
@@ -54,15 +55,15 @@ export const Formulario = () => {
   };
 
   const onSubmit = (values) => {
-    setSubmitted(true);
     if (files.length === 0) {
       toastWarn("Anexe a Certidão de nascimento da criança");
     } else {
+      setSubmitted(true);
       const payload = { dados: formataPayload(values, files) };
       postFormulario(payload).then((response) => {
         if (response.status === HTTP_STATUS.CREATED) {
           setSubmitted(true);
-          toastSuccess("Cadastrado com sucesso");
+          toastSuccess("Pré-Cadastro realizado com sucesso");
           setProtocolo(response.data.protocolo);
         } else {
           toastError(getError(response.data));
@@ -173,7 +174,7 @@ export const Formulario = () => {
                     <Field
                       component={Select}
                       name="nacionalidade_crianca"
-                      label="Nacionalidade da criança"
+                      label="País de origem da criança"
                       options={NACIONALIDADES}
                       required
                       validate={required}
@@ -407,7 +408,7 @@ export const Formulario = () => {
                   <div className="col-8">
                     <Field
                       component={InputText}
-                      maxlength={255}
+                      maxlength={20}
                       label="Complemento"
                       name="complemento_moradia"
                       toUppercaseActive
@@ -504,7 +505,7 @@ export const Formulario = () => {
                     <Field
                       component={Select}
                       name="filiacao1_nacionalidade"
-                      label="Nacionalidade"
+                      label="País de origem"
                       options={NACIONALIDADES}
                       required
                       validate={required}
@@ -598,7 +599,7 @@ export const Formulario = () => {
                         <Field
                           component={Select}
                           name="filiacao2_nacionalidade"
-                          label="Nacionalidade"
+                          label="País de origem"
                           options={NACIONALIDADES}
                           required
                           validate={required}
@@ -754,21 +755,32 @@ export const Formulario = () => {
                       component={InputText}
                       placeholder={"Telefone 1 do responsável"}
                       label="Telefone 1 do responsável"
-                      parse={formatString("(99) 99999-9999")}
+                      parse={
+                        values.telefone_responsavel &&
+                        values.telefone_responsavel.length + 1 <= 14
+                          ? formatString("(99) 9999-9999")
+                          : formatString("(99) 99999-9999")
+                      }
                       name="telefone_responsavel"
                       required
                       type="text"
-                      validate={composeValidators(required)}
+                      validate={composeValidators(required, telefoneLength)}
                     />
                   </div>
                   <div className="col-6">
                     <Field
                       component={InputText}
                       placeholder={"Telefone 2 do responsável"}
+                      parse={
+                        values.telefone_responsavel &&
+                        values.telefone_responsavel.length + 1 <= 14
+                          ? formatString("(99) 9999-9999")
+                          : formatString("(99) 99999-9999")
+                      }
                       label="Telefone 2 do responsável"
-                      parse={formatString("(99) 99999-9999")}
                       name="telefone_opcional"
                       type="text"
+                      validate={composeValidators(telefoneLength)}
                     />
                   </div>
                 </div>
