@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
 import React, { useState, Fragment } from "react";
 import moment from "moment";
 import HTTP_STATUS from "http-status-codes";
@@ -39,6 +38,10 @@ import {
   toastWarn,
 } from "../../components/Toast/dialogs";
 import CadastroComSucesso from "../CadastroComSucesso";
+import { RadioButtonSexo } from "./components/RadioButtonSexo";
+import { RadioButtonGenerico } from "./components/RadioButtonGenerico";
+import { RACAS_CORES } from "./constants";
+import { RadioButtonSimNao } from "./components/RadioButtonSimNao";
 
 export const Formulario = () => {
   const [files, setFiles] = useState([]);
@@ -84,7 +87,7 @@ export const Formulario = () => {
             tem_nee: "false",
             filiacao2_consta: true,
           }}
-          render={({ handleSubmit, form, submitting, pristine, values }) => (
+          render={({ handleSubmit, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
               <section className="crianca">
                 <h2>Dados da Criança</h2>
@@ -104,49 +107,27 @@ export const Formulario = () => {
                 />
                 <div className="row mt-2">
                   <div className="col-sm-6 col-12">
-                    <label>
-                      <span>* </span>Sexo da criança
-                    </label>
-                    <div>
-                      <label>
-                        <Field
-                          name="sexo_crianca"
-                          component="input"
-                          type="radio"
-                          required
-                          value="M"
-                        />{" "}
-                        Masculino
-                      </label>
-                      <label className="ml-3">
-                        <Field
-                          name="sexo_crianca"
-                          component="input"
-                          type="radio"
-                          required
-                          value="F"
-                        />{" "}
-                        Feminino
-                      </label>
-                    </div>
+                    <RadioButtonSexo
+                      name="sexo_crianca"
+                      label="Sexo da criança"
+                      required
+                    />
                   </div>
                   <div className="col-sm-6 col-12">
-                    {!submitting && (
-                      <Field
-                        label="Data de nascimento da criança"
-                        component={InputComData}
-                        name="dt_nasc_crianca"
-                        showMonthDropdown
-                        showYearDropdown
-                        minDate={moment(
-                          `${moment().year() - 6}-03-31`,
-                          "YYYY-MM-DD"
-                        ).toDate()}
-                        maxDate={moment().toDate()}
-                        required
-                        validate={required}
-                      />
-                    )}
+                    <Field
+                      label="Data de nascimento da criança"
+                      component={InputComData}
+                      name="dt_nasc_crianca"
+                      showMonthDropdown
+                      showYearDropdown
+                      minDate={moment(
+                        `${moment().year() - 6}-03-31`,
+                        "YYYY-MM-DD"
+                      ).toDate()}
+                      maxDate={moment().toDate()}
+                      required
+                      validate={required}
+                    />
                   </div>
                 </div>
                 <div className="row">
@@ -169,25 +150,23 @@ export const Formulario = () => {
                   </div>
                   {values.nacionalidade_crianca !== "Brasil" && (
                     <div className="col-sm-6 col-12">
-                      {!submitting && (
-                        <Field
-                          label="Data de entrada no país da criança"
-                          component={InputComData}
-                          name="dt_entrada_brasil"
-                          minDate={
-                            moment(values.dt_nasc_crianca, "DD-MM-YYYY")._d
-                          }
-                          maxDate={moment().toDate()}
-                          showMonthDropdown
-                          showYearDropdown
-                          required
-                          disabled={!values.dt_nasc_crianca}
-                          showHelpText={!values.dt_nasc_crianca}
-                          helpText={
-                            "Para habilitar este campo, preencha a data de nascimento da criança"
-                          }
-                        />
-                      )}
+                      <Field
+                        label="Data de entrada no país da criança"
+                        component={InputComData}
+                        name="dt_entrada_brasil"
+                        minDate={
+                          moment(values.dt_nasc_crianca, "DD-MM-YYYY")._d
+                        }
+                        maxDate={moment().toDate()}
+                        showMonthDropdown
+                        showYearDropdown
+                        required
+                        disabled={!values.dt_nasc_crianca}
+                        showHelpText={!values.dt_nasc_crianca}
+                        helpText={
+                          "Para habilitar este campo, preencha a data de nascimento da criança"
+                        }
+                      />
                     </div>
                   )}
                 </div>
@@ -223,100 +202,21 @@ export const Formulario = () => {
                 )}
                 <div className="row mt-2">
                   <div className="col-12">
-                    <label>
-                      <span>* </span>Raça/Cor
-                    </label>
-                    <div>
-                      <label>
-                        <Field
-                          name="raca_cor_crianca"
-                          component="input"
-                          type="radio"
-                          required
-                          value="1"
-                        />{" "}
-                        Amarela
-                      </label>
-                      <label className="ml-3">
-                        <Field
-                          name="raca_cor_crianca"
-                          component="input"
-                          type="radio"
-                          required
-                          value="2"
-                        />{" "}
-                        Branca
-                      </label>
-                      <label className="ml-3">
-                        <Field
-                          name="raca_cor_crianca"
-                          component="input"
-                          type="radio"
-                          required
-                          value="3"
-                        />{" "}
-                        Indígena
-                      </label>
-                      <label className="ml-3">
-                        <Field
-                          name="raca_cor_crianca"
-                          component="input"
-                          type="radio"
-                          required
-                          value="4"
-                        />{" "}
-                        Parda
-                      </label>
-                      <label className="ml-3">
-                        <Field
-                          name="raca_cor_crianca"
-                          component="input"
-                          type="radio"
-                          required
-                          value="5"
-                        />{" "}
-                        Preta
-                      </label>
-                      <label className="ml-3">
-                        <Field
-                          name="raca_cor_crianca"
-                          component="input"
-                          type="radio"
-                          required
-                          value="6"
-                        />{" "}
-                        Não declarada
-                      </label>
-                    </div>
+                    <RadioButtonGenerico
+                      name="raca_cor_crianca"
+                      label="Raça/cor"
+                      options={RACAS_CORES}
+                      required
+                    />
                   </div>
                 </div>
                 <div className="row mt-2">
                   <div className="col-sm-6 col-12">
-                    <label>
-                      <span>* </span>Possui alguma deficiência?
-                    </label>
-                    <div>
-                      <label>
-                        <Field
-                          name="tem_nee"
-                          component="input"
-                          type="radio"
-                          required
-                          value="true"
-                        />{" "}
-                        Sim
-                      </label>
-                      <label className="ml-3">
-                        <Field
-                          name="tem_nee"
-                          component="input"
-                          type="radio"
-                          required
-                          value="false"
-                        />{" "}
-                        Não
-                      </label>
-                    </div>
+                    <RadioButtonSimNao
+                      name="tem_nee"
+                      label="Possui alguma deficiência?"
+                      required
+                    />
                   </div>
                   {values.tem_nee === "true" && (
                     <div className="col-sm-6 col-12">
@@ -436,58 +336,18 @@ export const Formulario = () => {
                 />
                 <div className="row mt-2">
                   <div className="col-sm-3 col-12">
-                    <label>
-                      <span>* </span>Falecido?
-                    </label>
-                    <div>
-                      <label>
-                        <Field
-                          name="filiacao1_falecido"
-                          component="input"
-                          type="radio"
-                          required
-                          value="true"
-                        />{" "}
-                        Sim
-                      </label>
-                      <label className="ml-3">
-                        <Field
-                          name="filiacao1_falecido"
-                          component="input"
-                          type="radio"
-                          required
-                          value="false"
-                        />{" "}
-                        Não
-                      </label>
-                    </div>
+                    <RadioButtonSimNao
+                      name="filiacao1_falecido"
+                      label="Falecido?"
+                      required
+                    />
                   </div>
                   <div className="col-sm-5 col-12">
-                    <label>
-                      <span>* </span>Sexo
-                    </label>
-                    <div>
-                      <label>
-                        <Field
-                          name="filiacao1_sexo"
-                          component="input"
-                          type="radio"
-                          required
-                          value="M"
-                        />{" "}
-                        Masculino
-                      </label>
-                      <label className="ml-3">
-                        <Field
-                          name="filiacao1_sexo"
-                          component="input"
-                          type="radio"
-                          required
-                          value="F"
-                        />{" "}
-                        Feminino
-                      </label>
-                    </div>
+                    <RadioButtonSexo
+                      name="filiacao1_sexo"
+                      label="Sexo"
+                      required
+                    />
                   </div>
                   <div className="col-sm-4 col-12">
                     <Field
@@ -530,58 +390,18 @@ export const Formulario = () => {
                     />
                     <div className="row mt-2">
                       <div className="col-sm-3 col-12">
-                        <label>
-                          <span>* </span>Falecido?
-                        </label>
-                        <div>
-                          <label>
-                            <Field
-                              name="filiacao2_falecido"
-                              component="input"
-                              type="radio"
-                              required
-                              value="true"
-                            />{" "}
-                            Sim
-                          </label>
-                          <label className="ml-3">
-                            <Field
-                              name="filiacao2_falecido"
-                              component="input"
-                              type="radio"
-                              required
-                              value="false"
-                            />{" "}
-                            Não
-                          </label>
-                        </div>
+                        <RadioButtonSimNao
+                          name="filiacao2_falecido"
+                          label="Falecido?"
+                          required
+                        />
                       </div>
                       <div className="col-sm-5 col-12">
-                        <label>
-                          <span>* </span>Sexo
-                        </label>
-                        <div>
-                          <label>
-                            <Field
-                              name="filiacao2_sexo"
-                              component="input"
-                              type="radio"
-                              required
-                              value="M"
-                            />{" "}
-                            Masculino
-                          </label>
-                          <label className="ml-3">
-                            <Field
-                              name="filiacao2_sexo"
-                              component="input"
-                              type="radio"
-                              required
-                              value="F"
-                            />{" "}
-                            Feminino
-                          </label>
-                        </div>
+                        <RadioButtonSexo
+                          name="filiacao2_sexo"
+                          label="Sexo"
+                          required
+                        />
                       </div>
                       <div className="col-sm-4 col-12">
                         <Field
@@ -700,29 +520,27 @@ export const Formulario = () => {
                     />
                   </div>
                   <div className="col-sm-6 col-12">
-                    {!submitting && (
-                      <Field
-                        label="Data de nascimento do responsável"
-                        component={InputComData}
-                        name="dt_nasc_responsavel"
-                        maxDate={
-                          moment(values.dt_nasc_crianca, "DD-MM-YYYY").subtract(
-                            12,
-                            "years"
-                          )._d
-                        }
-                        showMonthDropdown
-                        showYearDropdown
-                        required
-                        validate={required}
-                        disabled={!values.dt_nasc_crianca}
-                        helpText={
-                          values.dt_nasc_crianca
-                            ? "Ao menos 12 anos mais velho que a criança"
-                            : "Para habilitar este campo, preencha a data de nascimento da criança"
-                        }
-                      />
-                    )}
+                    <Field
+                      label="Data de nascimento do responsável"
+                      component={InputComData}
+                      name="dt_nasc_responsavel"
+                      maxDate={
+                        moment(values.dt_nasc_crianca, "DD-MM-YYYY").subtract(
+                          12,
+                          "years"
+                        )._d
+                      }
+                      showMonthDropdown
+                      showYearDropdown
+                      required
+                      validate={required}
+                      disabled={!values.dt_nasc_crianca}
+                      helpText={
+                        values.dt_nasc_crianca
+                          ? "Ao menos 12 anos mais velho que a criança"
+                          : "Para habilitar este campo, preencha a data de nascimento da criança"
+                      }
+                    />
                   </div>
                 </div>
                 <div className="row">
