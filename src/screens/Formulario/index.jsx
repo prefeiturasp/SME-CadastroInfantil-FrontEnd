@@ -597,8 +597,8 @@ export const Formulario = () => {
                       component={InputText}
                       placeholder={"Telefone 2 do responsável"}
                       parse={
-                        values.telefone_responsavel &&
-                        values.telefone_responsavel.length + 1 <= 14
+                        values.telefone_opcional &&
+                        values.telefone_opcional.length + 1 <= 14
                           ? formatString("(99) 9999-9999")
                           : formatString("(99) 99999-9999")
                       }
