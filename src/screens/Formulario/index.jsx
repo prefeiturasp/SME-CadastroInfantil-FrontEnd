@@ -348,7 +348,10 @@ export const Formulario = () => {
                       required
                       onClickSim={() => {
                         values.tipo_responsavel =
-                          values.filiacao2_falecido === "true" ? "3" : null;
+                          values.filiacao2_falecido === "true" ||
+                          !values.filiacao2_consta
+                            ? "3"
+                            : null;
                         values.nome_responsavel = null;
                       }}
                     />
@@ -380,9 +383,12 @@ export const Formulario = () => {
                       component="input"
                       type="checkbox"
                       onClick={() => {
-                        values.tipo_responsavel = values.filiacao2_consta
-                          ? null
-                          : values.tipo_responsavel;
+                        values.tipo_responsavel =
+                          values.filiacao2_consta && values.filiacao1_falecido
+                            ? "3"
+                            : values.filiacao2_consta
+                            ? null
+                            : values.tipo_responsavel;
                         values.nome_responsavel = values.filiacao2_consta
                           ? null
                           : values.nome_responsavel;
