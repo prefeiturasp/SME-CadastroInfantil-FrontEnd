@@ -1,0 +1,14 @@
+@import "../../styles/variables.scss";
+
+section.crianca, section.responsavel {
+  h2 {
+    font-size: 20px;
+  }
+  label {
+    font-size: 14px;
+    color: $gray;
+    span {
+      color: $red;
+    }
+  }
+}
