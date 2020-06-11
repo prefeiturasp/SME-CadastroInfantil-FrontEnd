@@ -4,10 +4,12 @@
   font-family: Roboto;
 }
 
-.Toastify__toast {
-  transform: unset !important;
-  margin-left: 40%;
-  margin-right: -43%;
+@media (min-width: 576px) {
+  .Toastify__toast {
+    transform: unset !important;
+    margin-left: 40%;
+    margin-right: -43%;
+  }
 }
 
 .Toastify__toast-container--top-center {

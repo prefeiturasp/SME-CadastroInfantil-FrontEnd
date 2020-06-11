@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Field } from "react-final-form";
 
 export const RadioButtonGenerico = (props) => {
@@ -12,17 +12,20 @@ export const RadioButtonGenerico = (props) => {
       <div>
         {options.map((option, key) => {
           return (
-            <label className={key > 0 && "ml-3"}>
-              <Field
-                key={key}
-                name={name}
-                component="input"
-                type="radio"
-                required={required}
-                value={(key + 1).toString()}
-              />{" "}
-              {option}
-            </label>
+            <Fragment>
+              {key === 3 && <br className="d-block d-sm-none" />}
+              <label className={"mr-3"}>
+                <Field
+                  key={key}
+                  name={name}
+                  component="input"
+                  type="radio"
+                  required={required}
+                  value={(key + 1).toString()}
+                />{" "}
+                {option}
+              </label>
+            </Fragment>
           );
         })}
       </div>

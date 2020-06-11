@@ -116,6 +116,7 @@ export class InputComData extends Component {
             onChange={(value) => this.handleChange(value)}
             locale={ptBR}
             name={name}
+            required={required}
           />
           {hasIcon && (
             <i onClick={this.openDatepicker} className="fas fa-calendar-alt" />
