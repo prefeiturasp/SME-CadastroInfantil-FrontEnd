@@ -565,7 +565,7 @@ export const Formulario = () => {
                       component={InputText}
                       placeholder={"E-mail do responsável"}
                       label="E-mail do responsável"
-                      name="email"
+                      name="email_responsavel"
                       type="text"
                       validate={composeValidators(validaEmail)}
                     />
