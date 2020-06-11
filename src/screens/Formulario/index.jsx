@@ -347,7 +347,8 @@ export const Formulario = () => {
                       label="Falecido?"
                       required
                       onClickSim={() => {
-                        values.tipo_responsavel = null;
+                        values.tipo_responsavel =
+                          values.filiacao2_falecido === "true" ? "3" : null;
                         values.nome_responsavel = null;
                       }}
                     />
@@ -412,7 +413,8 @@ export const Formulario = () => {
                           name="filiacao2_falecido"
                           label="Falecido?"
                           onClickSim={() => {
-                            values.tipo_responsavel = null;
+                            values.tipo_responsavel =
+                              values.filiacao1_falecido === "true" ? "3" : null;
                             values.nome_responsavel = null;
                           }}
                           required
