@@ -38,3 +38,8 @@ export const validaTelefoneOuCelular = (value) =>
   value && !/^(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})$/g.test(value)
     ? "Telefone/celular inválido"
     : undefined;
+
+export const somenteAlfanumericos = (value) =>
+  value && /[^a-zA-Z0-9 ]/i.test(value)
+    ? "Somente caracteres alfanuméricos"
+    : undefined;

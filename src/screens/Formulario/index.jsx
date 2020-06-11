@@ -14,6 +14,7 @@ import {
   validaCPF,
   validaEmail,
   validaTelefoneOuCelular,
+  somenteAlfanumericos,
 } from "../../helpers/validators";
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
@@ -92,7 +93,7 @@ export const Formulario = () => {
               <section className="crianca">
                 <h2>Dados da Criança</h2>
                 <Field
-                  label="Nome Completo da criança"
+                  label="Nome completo da criança"
                   name="nome_crianca"
                   component={InputText}
                   maxlength={255}
@@ -161,6 +162,7 @@ export const Formulario = () => {
                         showMonthDropdown
                         showYearDropdown
                         required
+                        validate={required}
                         disabled={!values.dt_nasc_crianca}
                         showHelpText={!values.dt_nasc_crianca}
                         helpText={
@@ -176,7 +178,7 @@ export const Formulario = () => {
                       <Field
                         component={Select}
                         name="uf_nasc_crianca"
-                        label="UF de Nascimento da Criança"
+                        label="UF de nascimento da criança"
                         options={UF_ESTADOS}
                         required
                         validate={required}
@@ -187,7 +189,7 @@ export const Formulario = () => {
                       <Field
                         component={Select}
                         name="municipio_nasc_crianca"
-                        label="Município de Nascimento da Criança"
+                        label="Município de nascimento da criança"
                         options={arrayToOptions(
                           UF_ESTADOS.find(
                             (el) => el.nome === values.uf_nasc_crianca
@@ -223,7 +225,7 @@ export const Formulario = () => {
                       <Field
                         component={Select}
                         name="tipo_nee"
-                        label="Tipo de Deficiência"
+                        label="Tipo de deficiência"
                         options={agregarDefault(
                           arrayToOptions(NECESSIDADES_ESPECIAIS)
                         )}
@@ -239,7 +241,7 @@ export const Formulario = () => {
                     <Field
                       component={InputText}
                       parse={formatString("12345-678")}
-                      label="CEP da Criança"
+                      label="CEP da criança"
                       name="cep_moradia"
                       required
                       validate={composeValidators(required, validaCEP)}
@@ -273,7 +275,7 @@ export const Formulario = () => {
                   <div className="col-sm-8 col-12">
                     <Field
                       component={InputText}
-                      label="Endereço Residencial da Criança"
+                      label="Endereço residencial da criança"
                       name="endereco_moradia"
                       required
                       validate={required}
@@ -289,7 +291,10 @@ export const Formulario = () => {
                       label="Número"
                       name="numero_moradia"
                       required
-                      validate={required}
+                      validate={composeValidators(
+                        required,
+                        somenteAlfanumericos
+                      )}
                       toUppercaseActive
                     />
                   </div>
@@ -299,6 +304,7 @@ export const Formulario = () => {
                       maxlength={20}
                       label="Complemento"
                       name="complemento_moradia"
+                      validate={somenteAlfanumericos}
                       toUppercaseActive
                     />
                   </div>
@@ -306,7 +312,7 @@ export const Formulario = () => {
                 <div className="row pt-3">
                   <div className="col-12">
                     <label>
-                      <span>* </span>Certidão de Nascimento da Criança
+                      <span>* </span>Certidão de nascimento da criança
                     </label>
                     <Field
                       component={InputFile}
@@ -321,7 +327,7 @@ export const Formulario = () => {
                 </div>
                 <h2>Filiação 1 (Preferencialmente a Mãe)</h2>
                 <Field
-                  label="Nome Completo"
+                  label="Nome completo"
                   name="filiacao1_nome"
                   component={InputText}
                   maxlength={255}
@@ -387,7 +393,7 @@ export const Formulario = () => {
                 {values.filiacao2_consta && (
                   <Fragment>
                     <Field
-                      label="Nome Completo"
+                      label="Nome completo"
                       name="filiacao2_nome"
                       component={InputText}
                       maxlength={255}
@@ -510,7 +516,7 @@ export const Formulario = () => {
                   )}
                 </div>
                 <Field
-                  label="Nome Completo do Responsável"
+                  label="Nome completo do responsável"
                   name="nome_responsavel"
                   component={InputText}
                   maxlength={255}
