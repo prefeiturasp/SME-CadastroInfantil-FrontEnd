@@ -14,6 +14,7 @@ import {
   validaCPF,
   validaEmail,
   validaTelefoneOuCelular,
+  somenteAlfanumericos,
 } from "../../helpers/validators";
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
@@ -47,6 +48,7 @@ export const Formulario = () => {
   const [files, setFiles] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [protocolo, setProtocolo] = useState("");
+  const [apiCEPfora, setApiCEPfora] = useState(false);
 
   const removeFile = (index) => {
     files.splice(index, 1);
@@ -86,13 +88,14 @@ export const Formulario = () => {
             municipio_nasc_crianca: "São Paulo",
             tem_nee: "false",
             filiacao2_consta: true,
+            nome_irmao: "",
           }}
           render={({ handleSubmit, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
               <section className="crianca">
                 <h2>Dados da Criança</h2>
                 <Field
-                  label="Nome Completo da criança"
+                  label="Nome completo da criança"
                   name="nome_crianca"
                   component={InputText}
                   maxlength={255}
@@ -121,7 +124,7 @@ export const Formulario = () => {
                       showMonthDropdown
                       showYearDropdown
                       minDate={moment(
-                        `${moment().year() - 6}-03-31`,
+                        `${moment().year() - 6}-04-01`,
                         "YYYY-MM-DD"
                       ).toDate()}
                       maxDate={moment().toDate()}
@@ -161,6 +164,7 @@ export const Formulario = () => {
                         showMonthDropdown
                         showYearDropdown
                         required
+                        validate={required}
                         disabled={!values.dt_nasc_crianca}
                         showHelpText={!values.dt_nasc_crianca}
                         helpText={
@@ -176,7 +180,7 @@ export const Formulario = () => {
                       <Field
                         component={Select}
                         name="uf_nasc_crianca"
-                        label="UF de Nascimento da Criança"
+                        label="UF de nascimento da criança"
                         options={UF_ESTADOS}
                         required
                         validate={required}
@@ -187,7 +191,7 @@ export const Formulario = () => {
                       <Field
                         component={Select}
                         name="municipio_nasc_crianca"
-                        label="Município de Nascimento da Criança"
+                        label="Município de nascimento da criança"
                         options={arrayToOptions(
                           UF_ESTADOS.find(
                             (el) => el.nome === values.uf_nasc_crianca
@@ -218,12 +222,12 @@ export const Formulario = () => {
                       required
                     />
                   </div>
-                  {values.tem_nee === "true" && (
+                  {values.tem_nee === "S" && (
                     <div className="col-sm-6 col-12">
                       <Field
                         component={Select}
                         name="tipo_nee"
-                        label="Tipo de Deficiência"
+                        label="Tipo de deficiência"
                         options={agregarDefault(
                           arrayToOptions(NECESSIDADES_ESPECIAIS)
                         )}
@@ -239,7 +243,7 @@ export const Formulario = () => {
                     <Field
                       component={InputText}
                       parse={formatString("12345-678")}
-                      label="CEP da Criança"
+                      label="CEP da criança"
                       name="cep_moradia"
                       required
                       validate={composeValidators(required, validaCEP)}
@@ -249,7 +253,7 @@ export const Formulario = () => {
                       {async (value, previous) => {
                         if (value.length === 9) {
                           const response = await getEnderecoPorCEP(value);
-                          if (response.status === 200) {
+                          if (response.status === HTTP_STATUS.OK) {
                             if (response.data.resultado === "0") {
                               toastError("CEP não encontrado");
                               values.endereco_moradia = "";
@@ -265,6 +269,8 @@ export const Formulario = () => {
                                 " " +
                                 response.data.logradouro;
                             }
+                          } else {
+                            setApiCEPfora(true);
                           }
                         }
                       }}
@@ -273,11 +279,11 @@ export const Formulario = () => {
                   <div className="col-sm-8 col-12">
                     <Field
                       component={InputText}
-                      label="Endereço Residencial da Criança"
+                      label="Endereço residencial da criança"
                       name="endereco_moradia"
                       required
                       validate={required}
-                      disabled
+                      disabled={!apiCEPfora}
                     />
                   </div>
                 </div>
@@ -289,7 +295,10 @@ export const Formulario = () => {
                       label="Número"
                       name="numero_moradia"
                       required
-                      validate={required}
+                      validate={composeValidators(
+                        required,
+                        somenteAlfanumericos
+                      )}
                       toUppercaseActive
                     />
                   </div>
@@ -299,14 +308,42 @@ export const Formulario = () => {
                       maxlength={20}
                       label="Complemento"
                       name="complemento_moradia"
+                      validate={somenteAlfanumericos}
                       toUppercaseActive
                     />
                   </div>
                 </div>
+                <div className="row">
+                  <div className="col-12">
+                    <RadioButtonSimNao
+                      name="irmao_na_rede"
+                      label="A criança tem irmão matriculado em escola municipal de educação infantil?"
+                      required
+                    />
+                  </div>
+                  {values.irmao_na_rede === "S" && (
+                    <div className="col-12">
+                      <Field
+                        label="Nome completo do irmão"
+                        name="nome_irmao"
+                        component={InputText}
+                        maxlength={255}
+                        type="text"
+                        placeholder="Nome completo do irmão"
+                        required
+                        toUppercaseActive
+                        validate={composeValidators(
+                          required,
+                          somenteCaracteresEEspacos
+                        )}
+                      />
+                    </div>
+                  )}
+                </div>
                 <div className="row pt-3">
                   <div className="col-12">
                     <label>
-                      <span>* </span>Certidão de Nascimento da Criança
+                      <span>* </span>Certidão de nascimento da criança
                     </label>
                     <Field
                       component={InputFile}
@@ -321,7 +358,7 @@ export const Formulario = () => {
                 </div>
                 <h2>Filiação 1 (Preferencialmente a Mãe)</h2>
                 <Field
-                  label="Nome Completo"
+                  label="Nome completo"
                   name="filiacao1_nome"
                   component={InputText}
                   maxlength={255}
@@ -341,7 +378,11 @@ export const Formulario = () => {
                       label="Falecido?"
                       required
                       onClickSim={() => {
-                        values.tipo_responsavel = null;
+                        values.tipo_responsavel =
+                          values.filiacao2_falecido === "S" ||
+                          !values.filiacao2_consta
+                            ? "3"
+                            : null;
                         values.nome_responsavel = null;
                       }}
                     />
@@ -373,9 +414,12 @@ export const Formulario = () => {
                       component="input"
                       type="checkbox"
                       onClick={() => {
-                        values.tipo_responsavel = values.filiacao2_consta
-                          ? null
-                          : values.tipo_responsavel;
+                        values.tipo_responsavel =
+                          values.filiacao2_consta && values.filiacao1_falecido
+                            ? "3"
+                            : values.filiacao2_consta
+                            ? null
+                            : values.tipo_responsavel;
                         values.nome_responsavel = values.filiacao2_consta
                           ? null
                           : values.nome_responsavel;
@@ -387,7 +431,7 @@ export const Formulario = () => {
                 {values.filiacao2_consta && (
                   <Fragment>
                     <Field
-                      label="Nome Completo"
+                      label="Nome completo"
                       name="filiacao2_nome"
                       component={InputText}
                       maxlength={255}
@@ -406,7 +450,8 @@ export const Formulario = () => {
                           name="filiacao2_falecido"
                           label="Falecido?"
                           onClickSim={() => {
-                            values.tipo_responsavel = null;
+                            values.tipo_responsavel =
+                              values.filiacao1_falecido === "S" ? "3" : null;
                             values.nome_responsavel = null;
                           }}
                           required
@@ -451,7 +496,7 @@ export const Formulario = () => {
                           value="1"
                           disabled={
                             !values.filiacao1_nome ||
-                            values.filiacao1_falecido === "true"
+                            values.filiacao1_falecido === "S"
                           }
                           onClick={() =>
                             (values.nome_responsavel = values.filiacao1_nome)
@@ -469,7 +514,7 @@ export const Formulario = () => {
                           disabled={
                             !values.filiacao2_nome ||
                             !values.filiacao2_consta ||
-                            values.filiacao2_falecido === "true"
+                            values.filiacao2_falecido === "S"
                           }
                           onClick={() =>
                             (values.nome_responsavel = values.filiacao2_nome)
@@ -510,7 +555,7 @@ export const Formulario = () => {
                   )}
                 </div>
                 <Field
-                  label="Nome Completo do Responsável"
+                  label="Nome completo do responsável"
                   name="nome_responsavel"
                   component={InputText}
                   maxlength={255}

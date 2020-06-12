@@ -17,15 +17,17 @@ export const formataPayload = (payload, files) => {
     .join("-");
   if (payload.dt_entrada_brasil) {
     payload.dt_entrada_brasil = payload.dt_entrada_brasil
-    .split("/")
-    .reverse()
-    .join("-");
+      .split("/")
+      .reverse()
+      .join("-");
+    payload.uf_nasc_crianca = "";
+    payload.municipio_nasc_crianca = "";
   }
   payload.certidao_crianca = files[0].arquivo;
   payload.email_responsavel = payload.email_responsavel || "";
-  payload.tem_nee = payload.tem_nee === "true";
-  payload.filiacao1_falecido = payload.filiacao1_falecido === "true";
-  payload.filiacao2_falecido = payload.filiacao2_falecido === "true";
+  payload.tem_nee = payload.tem_nee === "S";
+  payload.filiacao1_falecido = payload.filiacao1_falecido === "S";
+  payload.filiacao2_falecido = payload.filiacao2_falecido === "S";
   payload.filiacao2_sexo = payload.filiacao2_sexo || "";
   if (!payload.filiacao2_consta) {
     payload.filiacao2_nacionalidade = "";
