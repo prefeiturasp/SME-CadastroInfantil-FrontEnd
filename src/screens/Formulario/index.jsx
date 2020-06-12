@@ -48,6 +48,7 @@ export const Formulario = () => {
   const [files, setFiles] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [protocolo, setProtocolo] = useState("");
+  const [apiCEPfora, setApiCEPfora] = useState(false);
 
   const removeFile = (index) => {
     files.splice(index, 1);
@@ -87,6 +88,7 @@ export const Formulario = () => {
             municipio_nasc_crianca: "São Paulo",
             tem_nee: "false",
             filiacao2_consta: true,
+            nome_irmao: "",
           }}
           render={({ handleSubmit, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
@@ -220,7 +222,7 @@ export const Formulario = () => {
                       required
                     />
                   </div>
-                  {values.tem_nee === "true" && (
+                  {values.tem_nee === "S" && (
                     <div className="col-sm-6 col-12">
                       <Field
                         component={Select}
@@ -251,7 +253,7 @@ export const Formulario = () => {
                       {async (value, previous) => {
                         if (value.length === 9) {
                           const response = await getEnderecoPorCEP(value);
-                          if (response.status === 200) {
+                          if (response.status === HTTP_STATUS.OK) {
                             if (response.data.resultado === "0") {
                               toastError("CEP não encontrado");
                               values.endereco_moradia = "";
@@ -267,6 +269,8 @@ export const Formulario = () => {
                                 " " +
                                 response.data.logradouro;
                             }
+                          } else {
+                            setApiCEPfora(true);
                           }
                         }
                       }}
@@ -279,7 +283,7 @@ export const Formulario = () => {
                       name="endereco_moradia"
                       required
                       validate={required}
-                      disabled
+                      disabled={!apiCEPfora}
                     />
                   </div>
                 </div>
@@ -308,6 +312,33 @@ export const Formulario = () => {
                       toUppercaseActive
                     />
                   </div>
+                </div>
+                <div className="row">
+                  <div className="col-12">
+                    <RadioButtonSimNao
+                      name="irmao_na_rede"
+                      label="A criança tem irmão matriculado em escola municipal de educação infantil?"
+                      required
+                    />
+                  </div>
+                  {values.irmao_na_rede === "S" && (
+                    <div className="col-12">
+                      <Field
+                        label="Nome completo do irmão"
+                        name="nome_irmao"
+                        component={InputText}
+                        maxlength={255}
+                        type="text"
+                        placeholder="Nome completo do irmão"
+                        required
+                        toUppercaseActive
+                        validate={composeValidators(
+                          required,
+                          somenteCaracteresEEspacos
+                        )}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="row pt-3">
                   <div className="col-12">
@@ -348,7 +379,7 @@ export const Formulario = () => {
                       required
                       onClickSim={() => {
                         values.tipo_responsavel =
-                          values.filiacao2_falecido === "true" ||
+                          values.filiacao2_falecido === "S" ||
                           !values.filiacao2_consta
                             ? "3"
                             : null;
@@ -420,7 +451,7 @@ export const Formulario = () => {
                           label="Falecido?"
                           onClickSim={() => {
                             values.tipo_responsavel =
-                              values.filiacao1_falecido === "true" ? "3" : null;
+                              values.filiacao1_falecido === "S" ? "3" : null;
                             values.nome_responsavel = null;
                           }}
                           required
@@ -465,7 +496,7 @@ export const Formulario = () => {
                           value="1"
                           disabled={
                             !values.filiacao1_nome ||
-                            values.filiacao1_falecido === "true"
+                            values.filiacao1_falecido === "S"
                           }
                           onClick={() =>
                             (values.nome_responsavel = values.filiacao1_nome)
@@ -483,7 +514,7 @@ export const Formulario = () => {
                           disabled={
                             !values.filiacao2_nome ||
                             !values.filiacao2_consta ||
-                            values.filiacao2_falecido === "true"
+                            values.filiacao2_falecido === "S"
                           }
                           onClick={() =>
                             (values.nome_responsavel = values.filiacao2_nome)
