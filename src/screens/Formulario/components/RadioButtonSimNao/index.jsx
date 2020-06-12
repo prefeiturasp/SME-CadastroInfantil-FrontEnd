@@ -16,7 +16,7 @@ export const RadioButtonSimNao = (props) => {
             component="input"
             type="radio"
             required
-            value="true"
+            value="S"
             onClick={(e) => onClickSim && onClickSim(e)}
           />{" "}
           Sim
@@ -27,7 +27,7 @@ export const RadioButtonSimNao = (props) => {
             component="input"
             type="radio"
             required={required}
-            value="false"
+            value="N"
           />{" "}
           Não
         </label>

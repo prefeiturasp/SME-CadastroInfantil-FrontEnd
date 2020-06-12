@@ -138,7 +138,7 @@ export class InputFile extends Component {
           return (
             <div className="file-div row" key={key}>
               <div
-                className="file-name col-4"
+                className="file-name col-8"
                 onClick={() => this.openFile(file)}
               >
                 {truncarString(file.nome, 20)}
