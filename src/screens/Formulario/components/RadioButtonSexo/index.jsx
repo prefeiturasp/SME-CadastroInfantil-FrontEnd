@@ -16,6 +16,9 @@ export const RadioButtonSexo = (props) => {
             component="input"
             type="radio"
             required
+            onFocus={(e) => e.relatedTarget &&
+              e.relatedTarget.nodeName === "BUTTON" &&
+              window.scrollBy(0, -30)}
             value="M"
           />{" "}
           Masculino
@@ -26,6 +29,9 @@ export const RadioButtonSexo = (props) => {
             component="input"
             type="radio"
             required={required}
+            onFocus={(e) => e.relatedTarget &&
+              e.relatedTarget.nodeName === "BUTTON" &&
+              window.scrollBy(0, -30)}
             value="F"
           />{" "}
           Feminino

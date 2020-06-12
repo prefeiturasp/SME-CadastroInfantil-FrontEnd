@@ -108,6 +108,9 @@ export class InputComData extends Component {
             minDate={minDate}
             maxDate={maxDate}
             disabled={disabled}
+            onFocus={(e) => e.relatedTarget &&
+              e.relatedTarget.nodeName === "BUTTON" &&
+              window.scrollBy(0, -30)}
             selected={this.dataSelecionada(input.value)}
             className={`form-control ${className} ${
               meta.touched && meta.error && "invalid-field"
