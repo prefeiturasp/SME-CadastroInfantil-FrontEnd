@@ -59,6 +59,9 @@ export const InputText = (props) => {
         data-cy={input.name}
         placeholder={placeholder}
         required={required}
+        onFocus={(e) => e.relatedTarget &&
+              e.relatedTarget.nodeName === "BUTTON" &&
+              window.scrollBy(0, -30)}
         type={type}
         title={title}
         pattern={pattern}

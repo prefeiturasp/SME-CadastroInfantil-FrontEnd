@@ -21,6 +21,9 @@ export const RadioButtonGenerico = (props) => {
                   component="input"
                   type="radio"
                   required={required}
+                  onFocus={(e) => e.relatedTarget &&
+              e.relatedTarget.nodeName === "BUTTON" &&
+              window.scrollBy(0, -30)}
                   value={(key + 1).toString()}
                 />{" "}
                 {option}

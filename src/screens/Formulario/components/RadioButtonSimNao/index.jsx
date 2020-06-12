@@ -15,6 +15,11 @@ export const RadioButtonSimNao = (props) => {
             name={name}
             component="input"
             type="radio"
+            onFocus={(e) =>
+              e.relatedTarget &&
+              e.relatedTarget.nodeName === "BUTTON" &&
+              window.scrollBy(0, -30)
+            }
             required
             value="S"
             onClick={(e) => onClickSim && onClickSim(e)}
@@ -26,6 +31,11 @@ export const RadioButtonSimNao = (props) => {
             name={name}
             component="input"
             type="radio"
+            onFocus={(e) =>
+              e.relatedTarget &&
+              e.relatedTarget.nodeName === "BUTTON" &&
+              window.scrollBy(0, -30)
+            }
             required={required}
             value="N"
           />{" "}
