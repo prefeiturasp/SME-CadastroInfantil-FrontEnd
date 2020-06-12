@@ -122,7 +122,7 @@ export const Formulario = () => {
                       showMonthDropdown
                       showYearDropdown
                       minDate={moment(
-                        `${moment().year() - 6}-03-31`,
+                        `${moment().year() - 6}-04-01`,
                         "YYYY-MM-DD"
                       ).toDate()}
                       maxDate={moment().toDate()}
