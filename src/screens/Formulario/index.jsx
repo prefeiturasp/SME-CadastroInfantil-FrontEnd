@@ -415,7 +415,8 @@ export const Formulario = () => {
                       type="checkbox"
                       onClick={() => {
                         values.tipo_responsavel =
-                          values.filiacao2_consta && values.filiacao1_falecido
+                          values.filiacao2_consta &&
+                          values.filiacao1_falecido === "S"
                             ? "3"
                             : values.filiacao2_consta
                             ? null

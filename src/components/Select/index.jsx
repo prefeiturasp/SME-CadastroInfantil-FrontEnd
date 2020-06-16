@@ -40,6 +40,9 @@ export const Select = (props) => {
         data-cy={label}
         onChange={input ? input.onChange : onChange}
         name={name}
+        onFocus={(e) => e.relatedTarget &&
+              e.relatedTarget.nodeName === "BUTTON" &&
+              window.scrollBy(0, -30)}
         required={required}
         style={width && { width: width - 12 }}
       >
