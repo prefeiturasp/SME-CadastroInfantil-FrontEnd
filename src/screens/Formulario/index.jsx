@@ -55,13 +55,13 @@ export const Formulario = () => {
     setFiles(files);
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     if (files.length === 0) {
       toastWarn("Anexe a Certidão de nascimento da criança");
     } else {
       let copyValues = deepCopy(values);
       const payload = { dados: formataPayload(copyValues, files) };
-      postFormulario(payload).then((response) => {
+      await postFormulario(payload).then((response) => {
         if (response.status === HTTP_STATUS.CREATED) {
           setSubmitted(true);
           toastSuccess("Pré-Cadastro realizado com sucesso");
@@ -665,6 +665,9 @@ export const Formulario = () => {
                     disabled={submitting || pristine}
                   />
                 </div>
+              </div>
+              <div className="duvidas-email">
+                <p>Dúvidas? Entre em contato pelo e-mail: <a href = "mailto: cadastroinfantil@sme.prefeitura.sp.gov.br">cadastroinfantil@sme.prefeitura.sp.gov.br</a></p>
               </div>
             </form>
           )}
