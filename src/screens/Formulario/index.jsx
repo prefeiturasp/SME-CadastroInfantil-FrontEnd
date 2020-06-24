@@ -390,7 +390,7 @@ export const Formulario = () => {
                   <div className="col-sm-5 col-12">
                     <RadioButtonSexo
                       name="filiacao1_sexo"
-                      label="Sexo"
+                      label="Sexo Filiação 1"
                       required
                     />
                   </div>
@@ -461,7 +461,7 @@ export const Formulario = () => {
                       <div className="col-sm-5 col-12">
                         <RadioButtonSexo
                           name="filiacao2_sexo"
-                          label="Sexo"
+                          label="Sexo Filiação 2"
                           required
                         />
                       </div>
