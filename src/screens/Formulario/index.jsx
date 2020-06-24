@@ -15,6 +15,7 @@ import {
   validaEmail,
   validaTelefoneOuCelular,
   somenteAlfanumericos,
+  apenasUmEspaco,
 } from "../../helpers/validators";
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
@@ -105,7 +106,8 @@ export const Formulario = () => {
                   toUppercaseActive
                   validate={composeValidators(
                     required,
-                    somenteCaracteresEEspacos
+                    somenteCaracteresEEspacos,
+                    apenasUmEspaco
                   )}
                 />
                 <div className="row mt-2">

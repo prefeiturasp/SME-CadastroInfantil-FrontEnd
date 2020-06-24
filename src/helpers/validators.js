@@ -11,6 +11,11 @@ export const semCaracteresEspeciais = (value) =>
     ? `Não permite caracteres especiais`
     : undefined;
 
+export const apenasUmEspaco = (value) =>
+  value && /^.*\s{2,}.*$/.test(value)
+    ? `Não permite mais de um espaço em branco seguidos`
+    : undefined;
+
 export const somenteCaracteresEEspacos = (value) =>
   value && !/^[a-zA-Z çÇ]+$/i.test(value)
     ? `Somente caracteres sem acento, cedilha e espaços`
