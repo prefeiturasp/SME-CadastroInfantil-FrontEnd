@@ -426,6 +426,18 @@ export const Formulario = () => {
                         values.nome_responsavel = values.filiacao2_consta
                           ? null
                           : values.nome_responsavel;
+                        values.filiacao2_nome = values.filiacao2_consta
+                          ? null
+                          : values.filiacao2_nome;
+                        values.filiacao2_falecido = values.filiacao2_consta
+                          ? null
+                          : values.filiacao2_falecido;
+                        values.filiacao2_sexo = values.filiacao2_consta
+                          ? null
+                          : values.filiacao2_sexo;
+                        values.filiacao2_nacionalidade = values.filiacao2_consta
+                          ? "Brasil"
+                          : values.filiacao2_nacionalidade;
                       }}
                     />{" "}
                     consta na certidão
