@@ -11,6 +11,7 @@ import {
   required,
   somenteCaracteresEEspacos,
   validaCEP,
+  validaRangeCEP,
   validaCPF,
   validaEmail,
   validaTelefoneOuCelular,
@@ -248,7 +249,7 @@ export const Formulario = () => {
                       label="CEP da criança"
                       name="cep_moradia"
                       required
-                      validate={composeValidators(required, validaCEP)}
+                      validate={composeValidators(required, validaCEP, validaRangeCEP)}
                       placeholder="Digite o CEP"
                     />
                     <OnChange name="cep_moradia">

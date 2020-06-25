@@ -1,4 +1,4 @@
-import { validarCPF } from "./helpers";
+import { validarCPF, between } from "./helpers";
 
 export const composeValidators = (...validators) => (value) =>
   validators.reduce((error, validator) => error || validator(value), undefined);
@@ -24,6 +24,13 @@ export const somenteCaracteresEEspacos = (value) =>
 export const validaCEP = (value) => {
   let numero = value.replace("-", "").replace(/_/g, "");
   return numero.length === 8 ? undefined : "Necessário CEP válido!";
+};
+
+export const validaRangeCEP = (value) => {
+  let numero = value.replace("-", "").replace(/_/g, "");
+  return (between(numero, 1000000, 5999999)||between(numero, 8000000, 8499999))
+  ? undefined
+  : "Necessário CEP da cidade de São Paulo!";
 };
 
 export const validaCPF = (value) => {
