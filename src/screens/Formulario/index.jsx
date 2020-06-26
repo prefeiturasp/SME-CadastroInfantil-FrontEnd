@@ -17,6 +17,7 @@ import {
   validaTelefoneOuCelular,
   somenteAlfanumericos,
   apenasUmEspaco,
+  semLetraSolta,
 } from "../../helpers/validators";
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
@@ -108,7 +109,8 @@ export const Formulario = () => {
                   validate={composeValidators(
                     required,
                     somenteCaracteresEEspacos,
-                    apenasUmEspaco
+                    apenasUmEspaco,
+                    semLetraSolta
                   )}
                 />
                 <div className="row mt-2">
@@ -693,3 +695,4 @@ export const Formulario = () => {
 };
 
 export default Formulario;
+

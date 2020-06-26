@@ -16,6 +16,11 @@ export const apenasUmEspaco = (value) =>
     ? `Não permite mais de um espaço em branco seguidos`
     : undefined;
 
+export const semLetraSolta = (value) =>
+  value && /(\s(?![E])[A-Z]\s|^(?![E])[A-Z]\s|\s(?![E])[A-Z]$)/g.test(value)
+    ? `Não permite letra solta`
+    : undefined;
+
 export const somenteCaracteresEEspacos = (value) =>
   value && !/^[a-zA-Z çÇ]+$/i.test(value)
     ? `Somente caracteres sem acento, cedilha e espaços`
@@ -55,3 +60,4 @@ export const somenteAlfanumericos = (value) =>
   value && /[^a-zA-Z0-9 ]/i.test(value)
     ? "Somente caracteres alfanuméricos"
     : undefined;
+
