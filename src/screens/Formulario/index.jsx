@@ -11,10 +11,13 @@ import {
   required,
   somenteCaracteresEEspacos,
   validaCEP,
+  validaRangeCEP,
   validaCPF,
   validaEmail,
   validaTelefoneOuCelular,
   somenteAlfanumericos,
+  apenasUmEspaco,
+  semLetraSolta,
 } from "../../helpers/validators";
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
@@ -105,7 +108,9 @@ export const Formulario = () => {
                   toUppercaseActive
                   validate={composeValidators(
                     required,
-                    somenteCaracteresEEspacos
+                    somenteCaracteresEEspacos,
+                    apenasUmEspaco,
+                    semLetraSolta
                   )}
                 />
                 <div className="row mt-2">
@@ -246,7 +251,7 @@ export const Formulario = () => {
                       label="CEP da criança"
                       name="cep_moradia"
                       required
-                      validate={composeValidators(required, validaCEP)}
+                      validate={composeValidators(required, validaCEP, validaRangeCEP)}
                       placeholder="Digite o CEP"
                     />
                     <OnChange name="cep_moradia">
@@ -390,7 +395,7 @@ export const Formulario = () => {
                   <div className="col-sm-5 col-12">
                     <RadioButtonSexo
                       name="filiacao1_sexo"
-                      label="Sexo"
+                      label="Sexo Filiação 1"
                       required
                     />
                   </div>
@@ -424,6 +429,18 @@ export const Formulario = () => {
                         values.nome_responsavel = values.filiacao2_consta
                           ? null
                           : values.nome_responsavel;
+                        values.filiacao2_nome = values.filiacao2_consta
+                          ? null
+                          : values.filiacao2_nome;
+                        values.filiacao2_falecido = values.filiacao2_consta
+                          ? null
+                          : values.filiacao2_falecido;
+                        values.filiacao2_sexo = values.filiacao2_consta
+                          ? null
+                          : values.filiacao2_sexo;
+                        values.filiacao2_nacionalidade = values.filiacao2_consta
+                          ? "Brasil"
+                          : values.filiacao2_nacionalidade;
                       }}
                     />{" "}
                     consta na certidão
@@ -461,7 +478,7 @@ export const Formulario = () => {
                       <div className="col-sm-5 col-12">
                         <RadioButtonSexo
                           name="filiacao2_sexo"
-                          label="Sexo"
+                          label="Sexo Filiação 2"
                           required
                         />
                       </div>
@@ -678,3 +695,4 @@ export const Formulario = () => {
 };
 
 export default Formulario;
+
