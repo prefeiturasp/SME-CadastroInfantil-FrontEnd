@@ -23,17 +23,17 @@
 
 3.  [Como surgiu](#como-surgiu)
 
-4.  [Links Úteis](#links-uteis)
+4.  [Links Úteis](#links-úteis)
 
-5.  [Comunicação](#comunicacao)
+5.  [Comunicação](#comunicação)
 
 6.  [Como contribuir](#como-contribuir)
 
-7.  [Repositórios](#repositorios)
+7.  [Repositórios](#repositórios)
 
-8.  [Documentações Auxiliares](#documentacoes-auxiliares)
+8.  [Documentações Auxiliares](#documentações-auxiliares)
 
-9.  [Instalação e Configuração](#instalacao-e-configuracao)
+9.  [Instalação e Configuração](#instalação-e-configuração)
 
 ----------
 
