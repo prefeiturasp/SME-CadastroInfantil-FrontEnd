@@ -1,10 +1,6 @@
 
 # Cadastro Infantil
 
-Descrever a visão do produto.
-
-Exemplo:
-
 > Para as  **famílias e responsáveis dos estudantes**
 
 > Que  **gostariam de inscrever as crianças na Educação Infantil sem a necessidade do atendimento presencial**
@@ -21,9 +17,9 @@ Exemplo:
 
 **Conteúdo:**
 
-1.  [Sobre o Time](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Sobre-o-Time)
+1.  [Sobre o Time](#sobre-o-time)
 
-2.  [Sobre o Produto](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Sobre-o-Produto)
+2.  [Sobre o Produto](#sobre-o-produto)
 
 3.  [Como surgiu](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Como-surgiu)
 
@@ -41,7 +37,7 @@ Exemplo:
 
 ----------
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#sobre-o-time)Sobre o Time:
+## [](#sobre-o-time)Sobre o Time:
 
 | Papel | Titular | Suplente  
 |--|--|--|  
@@ -52,7 +48,7 @@ Exemplo:
 | Analista de negócios | Fabrício Ramalho | |  
 | Analista Programador | @CalvinRossinhole, @giusepper11, @kelwys | |  
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#sobre-o-produto)Sobre o Produto
+## [](#sobre-o-produto)Sobre o Produto
 
 ### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#objetivos-de-neg%C3%B3cio)Objetivos de Negócio
 
@@ -130,11 +126,8 @@ Não houve oficina de ateste com usuários finais, mas existiram diversos testes
 
 ## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#links-%C3%BAteis)Links Úteis:
 
-Inserir aqui o link para os ambientes utilizados pelo projeto:
-
 **Homologação:**
 https://hom-cadastroinfantil.sme.prefeitura.sp.gov.br/
-
 
 **Produção:**
 https://cadastroinfantil.sme.prefeitura.sp.gov.br/
@@ -153,8 +146,6 @@ E-mail:
 Contribuições são **super bem vindas**! Se você tem vontade de construir o pré cadastro infantil conosco, veja o nosso  [guia de contribuição](https://github.com/prefeiturasp/SME/blob/master/docs/CONTRIBUTING.md)  onde explicamos detalhadamente como trabalhamos e de que formas você pode nos ajudar a alcançar nossos objetivos. Lembrando que todos devem seguir nosso  [código de conduta](https://github.com/prefeiturasp/SME/blob/master/docs/CODEOFCONDUCT.md).
 
 ## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#reposit%C3%B3rios)Repositórios:
-
-Informar os repositórios de código que envolvem a solução:
 
 [SME-CADASTRO INFANTIL - FRONT]
 https://github.com/prefeiturasp/SME-CadastroInfantil-FrontEnd
