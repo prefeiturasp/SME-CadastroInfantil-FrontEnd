@@ -1,10 +1,6 @@
 
 # Cadastro Infantil
 
-Descrever a visão do produto.
-
-Exemplo:
-
 > Para as  **famílias e responsáveis dos estudantes**
 
 > Que  **gostariam de inscrever as crianças na Educação Infantil sem a necessidade do atendimento presencial**
@@ -21,27 +17,27 @@ Exemplo:
 
 **Conteúdo:**
 
-1.  [Sobre o Time](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Sobre-o-Time)
+1.  [Sobre o Time](#sobre-o-time)
 
-2.  [Sobre o Produto](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Sobre-o-Produto)
+2.  [Sobre o Produto](#sobre-o-produto)
 
-3.  [Como surgiu](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Como-surgiu)
+3.  [Como surgiu](#como-surgiu)
 
-4.  [Links Úteis](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Links-%C3%9Ateis)
+4.  [Links Úteis](#links-úteis)
 
-5.  [Comunicação](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Comunica%C3%A7%C3%A3o)
+5.  [Comunicação](#comunicação)
 
-6.  [Como contribuir](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#como-contribuir)
+6.  [Como contribuir](#como-contribuir)
 
-7.  [Repositórios](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Reposit%C3%B3rios)
+7.  [Repositórios](#repositórios)
 
-8.  [Documentações Auxiliares](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Documenta%C3%A7%C3%B5es-Auxiliares)
+8.  [Documentações Auxiliares](#documentações-auxiliares)
 
-9.  [Instalação e Configuração](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#Instala%C3%A7%C3%A3o-e-Configura%C3%A7%C3%A3o)
+9.  [Instalação e Configuração](#instalação-e-configuração)
 
 ----------
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#sobre-o-time)Sobre o Time:
+## [](#sobre-o-time)Sobre o Time:
 
 | Papel | Titular | Suplente  
 |--|--|--|  
@@ -52,9 +48,9 @@ Exemplo:
 | Analista de negócios | Fabrício Ramalho | |  
 | Analista Programador | @CalvinRossinhole, @giusepper11, @kelwys | |  
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#sobre-o-produto)Sobre o Produto
+## [](#sobre-o-produto)Sobre o Produto
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#objetivos-de-neg%C3%B3cio)Objetivos de Negócio
+### [](#objetivos-de-negocio)Objetivos de Negócio
 
 O Cadastro Infantil é um formulário online para realização do pré-cadastro de crianças na Educação Infantil da rede municipal de educação. Com isso, a SME apoia as orientações dos órgãos de saúde de evitar aglomerações e garante maior facilidade e agilidade no momento de inscrição.
 
@@ -68,7 +64,7 @@ O Cadastro Infantil é um formulário online para realização do pré-cadastro 
 
 - Não realiza todo o processo de matrícula que deve ser seguido de acordo com legislação
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#personas)Personas
+### [](#personas)Personas
 
 - Famílias e responsáveis:
 
@@ -86,11 +82,11 @@ O Cadastro Infantil é um formulário online para realização do pré-cadastro 
 
 > O que consideram valioso: acompanhar se todos os cadastros foram realizados
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#funcionalidades)Funcionalidades
+### [](#funcionalidades)Funcionalidades
 
 - Formulário de cadastro de interesse, com e-mail automatizado de confirmação de realização de cadastro
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#jornadas)Jornadas
+### [](#jornadas)Jornadas
 
 - Família faz cadastro
 
@@ -100,13 +96,13 @@ O Cadastro Infantil é um formulário online para realização do pré-cadastro 
 
 - SME envia e-mail para cadastrante com número do protocolo pelo e-mail próprio do Cadastro Infantil
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#roadmap)Roadmap
+### [](#roadmap)Roadmap
 
 Não há roadmap previsto, uma vez que a evolução desse produto é realizar o cadastro diretamente via Eol.
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#como-surgiu)Como surgiu
+## [](#como-surgiu)Como surgiu
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#fase-de-descoberta)Fase de Descoberta:
+### [](#fase-de-descoberta)Fase de Descoberta:
 
 Surgiu da necessidade das famílias e responsáveis realizarem o cadastro na Educação Infantil da rede municipal de ensino durante o período que as escolas estavam com horário reduzido por conta da pandemia.
 
@@ -120,25 +116,22 @@ Não houve etapa oficial de descoberta por conta da urgência da demanda, mas ex
 
 Não houve oficina de ateste com usuários finais, mas existiram diversos testes internos para melhorias no produto antes do lançamento e também melhorias identificadas a partir de experiências com os primeiros cadastros.
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#prot%C3%B3tipos)Protótipos:
+### [](#prototipos)Protótipos:
 
 O protótipo foi criado a partir de documentos produzidos pela área com as informações necessárias para a realização do cadastro infantil.
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#testes-de-usabilidade)Testes de Usabilidade:
+### [](#testes-de-usabilidade)Testes de Usabilidade:
 
 Não houve oficina de ateste com usuários finais, mas existiram diversos testes internos para melhorias no produto antes do lançamento e também melhorias identificadas a partir de experiências com os primeiros cadastros.
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#links-%C3%BAteis)Links Úteis:
-
-Inserir aqui o link para os ambientes utilizados pelo projeto:
+## [](#links-uteis)Links Úteis:
 
 **Homologação:**
 https://hom-cadastroinfantil.sme.prefeitura.sp.gov.br/
 
-
 **Produção:**
 https://cadastroinfantil.sme.prefeitura.sp.gov.br/
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#comunica%C3%A7%C3%A3o)Comunicação:
+## [](#comunicacao)Comunicação:
 
 Canal de comunicação
 
@@ -148,13 +141,11 @@ E-mail:
 
 
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#como-contribuir)Como contribuir
+## [](#como-contribuir)Como contribuir
 
 Contribuições são **super bem vindas**! Se você tem vontade de construir o pré cadastro infantil conosco, veja o nosso  [guia de contribuição](https://github.com/prefeiturasp/SME/blob/master/docs/CONTRIBUTING.md)  onde explicamos detalhadamente como trabalhamos e de que formas você pode nos ajudar a alcançar nossos objetivos. Lembrando que todos devem seguir nosso  [código de conduta](https://github.com/prefeiturasp/SME/blob/master/docs/CODEOFCONDUCT.md).
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#reposit%C3%B3rios)Repositórios:
-
-Informar os repositórios de código que envolvem a solução:
+## [](#repositorios)Repositórios:
 
 [SME-CADASTRO INFANTIL - FRONT]
 https://github.com/prefeiturasp/SME-CadastroInfantil-FrontEnd
@@ -162,11 +153,11 @@ https://github.com/prefeiturasp/SME-CadastroInfantil-FrontEnd
 [SME-CADASTRO INFANTIL - BACK]
 https://github.com/prefeiturasp/SME-CadastroInfantil-BackEnd
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#documenta%C3%A7%C3%B5es-auxiliares)Documentações Auxiliares:
+## [](#documentacoes-auxiliares)Documentações Auxiliares:
 
 Não se aplica.
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#instala%C3%A7%C3%A3o-e-configura%C3%A7%C3%A3o)Instalação e Configuração:
+## [](#instalacao-e-configuracao)Instalação e Configuração:
 
 ## Pré-requisitos
 
