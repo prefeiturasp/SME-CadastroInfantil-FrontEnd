@@ -6,11 +6,12 @@ export const postFormulario2 = async (payload) => {
 };
 
 export const postFormulario = async (payload) => {
-  const url = `${API_URL}/v1/cadastro/`;
+  const url = `${API_URL}/v1/cadastro/?v=1`;
   let status = 0;
   return fetch(url, {
     headers: {
       "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
     },
     method: "POST",
     body: JSON.stringify(payload),
@@ -23,6 +24,6 @@ export const postFormulario = async (payload) => {
       return { data: data, status: status };
     })
     .catch((error) => {
-      return error.json();
+      return error;
     });
 };
