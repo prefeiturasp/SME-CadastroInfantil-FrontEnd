@@ -1,10 +1,14 @@
 import { validarCPF, between } from "./helpers";
+import { cpf_existe } from "../services/formulario.service"
 
 export const composeValidators = (...validators) => (value) =>
   validators.reduce((error, validator) => error || validator(value), undefined);
 
 export const required = (value) =>
   value !== undefined ? undefined : "Campo obrigatório";
+
+export const required_numero = (value) =>
+  value !== undefined ? undefined : "Campo obrigatório - Sem número informar 0";
 
 export const semCaracteresEspeciais = (value) =>
   value && !/^[\w&.-]+$/i.test(value)
@@ -15,6 +19,11 @@ export const apenasUmEspaco = (value) =>
   value && /^.*\s{2,}.*$/.test(value)
     ? `Não permite mais de um espaço em branco seguidos`
     : undefined;
+
+export const apenasDuasLetrasRepetidas = (value) =>
+    value && /^.*(.)\1{2}.*$/.test(value) 
+      ? `Não permite mais de 2 vezes a mesma letra em sequência.`
+      : undefined;
 
 export const semLetraSolta = (value) =>
   value && /(\s(?![E])[A-Z]\s|^(?![E])[A-Z]\s|\s(?![E])[A-Z]$)/g.test(value)
@@ -42,6 +51,23 @@ export const validaCPF = (value) => {
   let cpfValido = validarCPF(value);
   return cpfValido ? undefined : "CPF inválido";
 };
+
+export const validaCpfBack = async(value) => {
+  let mensagem = "CPF inválido"
+  const cpf = value.replace(/[^\d]+/g, "")
+  if (cpf.length === 11) {
+    try {
+      const response = await cpf_existe(cpf);
+      console.log(response);  
+    } catch (error) {
+      console.log(error)
+      mensagem = "CPF já cadastrado"
+      return mensagem;
+    }
+  }
+  return false;
+}
+
 export const validaEmail = (value) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? "Email inválido"
@@ -61,3 +87,10 @@ export const somenteAlfanumericos = (value) =>
     ? "Somente caracteres alfanuméricos"
     : undefined;
 
+
+export const somenteNumericos = (value) =>
+    value && /[^0-9 ]/i.test(value)
+      ? "Somente caracteres numéricos"
+      : undefined;
+  
+  
