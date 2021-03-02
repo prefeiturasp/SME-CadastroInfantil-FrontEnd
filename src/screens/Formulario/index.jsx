@@ -9,15 +9,19 @@ import { InputComData } from "../../components/DatePicker";
 import {
   composeValidators,
   required,
+  required_numero,
   somenteCaracteresEEspacos,
   validaCEP,
   validaRangeCEP,
   validaCPF,
+  validaCpfBack,
   validaEmail,
   validaTelefoneOuCelular,
   somenteAlfanumericos,
+  somenteNumericos,
   apenasUmEspaco,
   semLetraSolta,
+  apenasDuasLetrasRepetidas
 } from "../../helpers/validators";
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
@@ -96,7 +100,16 @@ export const Formulario = () => {
           render={({ handleSubmit, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
               <section className="crianca">
-                <h2>Dados da Criança</h2>
+              <h2>Dados da Criança</h2>
+                <Field
+                  component={InputText}
+                  parse={formatString("999.999.999-99")}
+                  label="CPF"
+                  name="cpf"
+                  required
+                  validate={composeValidators(required, validaCPF, validaCpfBack)}
+                  placeholder="Digite o CPF"
+                />
                 <Field
                   label="Nome completo da criança"
                   name="nome_crianca"
@@ -110,7 +123,8 @@ export const Formulario = () => {
                     required,
                     somenteCaracteresEEspacos,
                     apenasUmEspaco,
-                    semLetraSolta
+                    semLetraSolta,
+                    apenasDuasLetrasRepetidas
                   )}
                 />
                 <div className="row mt-2">
@@ -296,13 +310,13 @@ export const Formulario = () => {
                   <div className="col-sm-4 col-12">
                     <Field
                       component={InputText}
-                      maxlength={255}
+                      maxlength={5}
                       label="Número"
                       name="numero_moradia"
                       required
                       validate={composeValidators(
-                        required,
-                        somenteAlfanumericos
+                        required_numero,
+                        somenteNumericos
                       )}
                       toUppercaseActive
                     />
@@ -372,7 +386,8 @@ export const Formulario = () => {
                   required
                   validate={composeValidators(
                     required,
-                    somenteCaracteresEEspacos
+                    somenteCaracteresEEspacos,
+                    apenasDuasLetrasRepetidas
                   )}
                   toUppercaseActive
                 />
@@ -458,7 +473,8 @@ export const Formulario = () => {
                       required
                       validate={composeValidators(
                         required,
-                        somenteCaracteresEEspacos
+                        somenteCaracteresEEspacos,
+                        apenasDuasLetrasRepetidas
                       )}
                       toUppercaseActive
                     />
@@ -582,7 +598,8 @@ export const Formulario = () => {
                   required
                   validate={composeValidators(
                     required,
-                    somenteCaracteresEEspacos
+                    somenteCaracteresEEspacos,
+                    apenasDuasLetrasRepetidas
                   )}
                   toUppercaseActive
                 />

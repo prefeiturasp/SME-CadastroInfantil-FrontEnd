@@ -27,3 +27,8 @@ export const postFormulario = async (payload) => {
       return error;
     });
 };
+
+
+export const cpf_existe = async (cpf) => {
+  return await axios.get(`${API_URL}/v1/cpf-existe/${cpf}`);
+};
