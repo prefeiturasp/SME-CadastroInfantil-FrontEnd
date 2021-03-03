@@ -1,4 +1,5 @@
 export const formataPayload = (payload, files) => {
+  payload.cpf = payload.cpf.match(/\d/g).join("");
   payload.cep_moradia = payload.cep_moradia.match(/\d/g).join("");
   payload.cpf_responsavel = payload.cpf_responsavel.match(/\d/g).join("");
   payload.telefone_responsavel = payload.telefone_responsavel
