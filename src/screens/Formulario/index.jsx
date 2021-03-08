@@ -50,19 +50,27 @@ import { RadioButtonSexo } from "./components/RadioButtonSexo";
 import { RadioButtonGenerico } from "./components/RadioButtonGenerico";
 import { RACAS_CORES } from "./constants";
 import { RadioButtonSimNao } from "./components/RadioButtonSimNao";
+import { Button, Modal } from 'react-bootstrap';
 
 export const Formulario = () => {
   const [files, setFiles] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [protocolo, setProtocolo] = useState("");
   const [apiCEPfora, setApiCEPfora] = useState(false);
+  const [cpfJaCadastrado, setCpfJaCadastrado] = useState("");
+  const [show, setShow] = useState(false);
 
   const removeFile = (index) => {
     files.splice(index, 1);
     setFiles(files);
   };
 
+  const cancelar = () => {
+    setShow(false);
+  }
+
   const onSubmit = async (values) => {
+    setShow(false);
     if (files.length === 0) {
       toastWarn("Anexe a Certidão de nascimento da criança");
     } else {
@@ -80,13 +88,39 @@ export const Formulario = () => {
     }
   };
 
+  const enviar = async (values) => {
+    if (cpfJaCadastrado !== "") {
+      setShow(true);
+    } else {
+      await onSubmit(values);
+    }
+  }
+
+  const ModalConfirmacao = (propriedades) => {
+    return (
+      <Modal centered show={propriedades.show}>
+        <Modal.Body>
+        Pré-cadastro já efetuado com o CPF informado. Deseja continuar?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={e => propriedades.handleSubmit(propriedades.values)}>
+            Sim 
+          </Button>
+          <Button onClick={propriedades.cancelar}>
+            Não
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    )
+  }
+
   return (
     <div>
       {submitted ? (
         protocolo && <CadastroComSucesso protocolo={protocolo} />
       ) : (
         <Form
-          onSubmit={onSubmit}
+          onSubmit={enviar}
           initialValues={{
             nacionalidade_crianca: "Brasil",
             filiacao1_nacionalidade: "Brasil",
@@ -107,9 +141,26 @@ export const Formulario = () => {
                   label="CPF"
                   name="cpf"
                   required
-                  validate={composeValidators(required, validaCPF, validaCpfBack)}
+                  OnChange
+                  validate={composeValidators(required, validaCPF)}
                   placeholder="Digite o CPF"
                 />
+                {cpfJaCadastrado && (<span className="cpf">{cpfJaCadastrado}</span>)}
+                <OnChange name="cpf">
+                      {async (value, previous) => {
+                        const cpf_value = value.replace(/[^\d]+/g, "");
+                        if (cpf_value.length === 11 && somenteNumericos(cpf_value) === undefined) {
+                          const response = await validaCpfBack(cpf_value);
+                          if (!response) {
+                              setCpfJaCadastrado("CPF Já Cadastrado.");
+                          } else {
+                            setCpfJaCadastrado("");
+                          }
+                        } else if (cpfJaCadastrado !== "") {
+                           setCpfJaCadastrado(""); 
+                        }
+                      }}
+                </OnChange>
                 <Field
                   label="Nome completo da criança"
                   name="nome_crianca"
@@ -703,7 +754,14 @@ export const Formulario = () => {
               <div className="duvidas-email">
                 <p>Dúvidas? Entre em contato pelo e-mail: <a href = "mailto: cadastroinfantil@sme.prefeitura.sp.gov.br">cadastroinfantil@sme.prefeitura.sp.gov.br</a></p>
               </div>
+              <ModalConfirmacao 
+                show={show} 
+                cancelar={cancelar} 
+                handleSubmit={onSubmit}
+                values={values}>  
+              </ModalConfirmacao>
             </form>
+
           )}
         />
       )}
