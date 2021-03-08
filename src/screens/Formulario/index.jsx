@@ -107,7 +107,7 @@ export const Formulario = () => {
             Sim 
           </Button>
           <Button onClick={propriedades.cancelar}>
-            Cancelar
+            Não
           </Button>
         </Modal.Footer>
       </Modal>
