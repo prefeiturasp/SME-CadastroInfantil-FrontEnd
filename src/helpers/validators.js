@@ -58,14 +58,12 @@ export const validaCpfBack = async(value) => {
   if (cpf.length === 11) {
     try {
       const response = await cpf_existe(cpf);
-      console.log(response);  
+      return true;  
     } catch (error) {
-      console.log(error)
       mensagem = "CPF já cadastrado"
-      return mensagem;
+      return false;
     }
   }
-  return false;
 }
 
 export const validaEmail = (value) =>
