@@ -32,3 +32,7 @@ export const postFormulario = async (payload) => {
 export const cpf_existe = async (cpf) => {
   return await axios.get(`${API_URL}/v1/cpf-existe/${cpf}/`);
 };
+
+export const getSituacaoSite = async () => {
+  return await axios.get(`${API_URL}/v1/situacao-site/`);
+};
