@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { version } from "../package.json";
 import { MenuPrincipal } from "./components/Menu/MenuPrincipal";
 import { MenuAcessibilidade } from "./components/Menu/MenuAcessibilidade";
-import { Rodape } from "./components/Rodape/Rodape";
+import Rodape from "./components/Rodape/Rodape";
 import Routes from "./routing/config";
 import "./assets/css/styles.scss";
 
