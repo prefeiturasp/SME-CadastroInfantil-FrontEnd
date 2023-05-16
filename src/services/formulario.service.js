@@ -36,3 +36,7 @@ export const cpf_existe = async (cpf) => {
 export const getSituacaoSite = async () => {
   return await axios.get(`${API_URL}/v1/situacao-site/`);
 };
+
+export const getPalavrasBloqueadas = async () => {
+  return await axios.get(`https://consulteseucadastro.sme.prefeitura.sp.gov.br/api/palavras-bloqueadas/`);
+};
