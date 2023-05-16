@@ -90,5 +90,10 @@ export const somenteNumericos = (value) =>
     value && /[^0-9 ]/i.test(value)
       ? "Somente caracteres numéricos"
       : undefined;
-  
-  
+
+export const validaPalavrasBloqueadas = palavrasBloqueadas => (value) =>
+  palavrasBloqueadas &&
+  value &&
+  palavrasBloqueadas.some((palavra) => value.toLowerCase().split(" ").includes(palavra))
+    ? `Nome inválido`
+    : undefined;
