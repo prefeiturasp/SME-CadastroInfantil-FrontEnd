@@ -21,7 +21,8 @@ import {
     somenteNumericos,
     apenasUmEspaco,
     semLetraSolta,
-    apenasDuasLetrasRepetidas
+    apenasDuasLetrasRepetidas,
+    validaPalavrasBloqueadas
 } from "../../helpers/validators";
 import Select from "../../components/Select";
 import { NACIONALIDADES } from "../../constants/NACIONALIDADES";
@@ -37,7 +38,7 @@ import formatString from "format-string-by-pattern";
 import { getEnderecoPorCEP } from "../../services/cep.service";
 import Botao from "../../components/Botao";
 import { BUTTON_TYPE, BUTTON_STYLE } from "../../components/Botao/constants";
-import { postFormulario, getSituacaoSite } from "../../services/formulario.service";
+import { postFormulario, getSituacaoSite, getPalavrasBloqueadas } from "../../services/formulario.service";
 import { formataPayload } from "./helper";
 import "./style.scss";
 import {
@@ -61,16 +62,25 @@ export const Formulario = () => {
     const [cpfJaCadastrado, setCpfJaCadastrado] = useState("");
     const [show, setShow] = useState(false);
     const [situacaoSite, setSituacaoSite] = useState(null);
+    const [palavrasBloqueadas, setpalavrasBloqueadas] = useState([]);
 
     const getStatusSite = async () => {
-          const response = await getSituacaoSite();
-          if (response.status === HTTP_STATUS.OK) {
+        const response = await getSituacaoSite();
+        if (response.status === HTTP_STATUS.OK) {
             setSituacaoSite(response.data);
-          }
-      };
+        }
+    };
+
+    const GetPalavras = async () => {
+        const response = await getPalavrasBloqueadas();
+        if (response.status === HTTP_STATUS.OK) {
+            setpalavrasBloqueadas(response.data);
+        }
+      }
 
     useEffect(() => {
         getStatusSite()
+        GetPalavras()
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
@@ -198,7 +208,8 @@ export const Formulario = () => {
                                             somenteCaracteresEEspacos,
                                             apenasUmEspaco,
                                             semLetraSolta,
-                                            apenasDuasLetrasRepetidas
+                                            apenasDuasLetrasRepetidas,
+                                            validaPalavrasBloqueadas(palavrasBloqueadas)
                                         )}
                                     />
                                     <div className="row mt-2">
@@ -427,7 +438,8 @@ export const Formulario = () => {
                                                     toUppercaseActive
                                                     validate={composeValidators(
                                                         required,
-                                                        somenteCaracteresEEspacos
+                                                        somenteCaracteresEEspacos,
+                                                        validaPalavrasBloqueadas(palavrasBloqueadas)
                                                     )}
                                                 />
                                             </div>
@@ -461,7 +473,8 @@ export const Formulario = () => {
                                         validate={composeValidators(
                                             required,
                                             somenteCaracteresEEspacos,
-                                            apenasDuasLetrasRepetidas
+                                            apenasDuasLetrasRepetidas,
+                                            validaPalavrasBloqueadas(palavrasBloqueadas)
                                         )}
                                         toUppercaseActive
                                     />
@@ -548,7 +561,8 @@ export const Formulario = () => {
                                                 validate={composeValidators(
                                                     required,
                                                     somenteCaracteresEEspacos,
-                                                    apenasDuasLetrasRepetidas
+                                                    apenasDuasLetrasRepetidas,
+                                                    validaPalavrasBloqueadas(palavrasBloqueadas)
                                                 )}
                                                 toUppercaseActive
                                             />
@@ -673,7 +687,8 @@ export const Formulario = () => {
                                         validate={composeValidators(
                                             required,
                                             somenteCaracteresEEspacos,
-                                            apenasDuasLetrasRepetidas
+                                            apenasDuasLetrasRepetidas,
+                                            validaPalavrasBloqueadas(palavrasBloqueadas)
                                         )}
                                         toUppercaseActive
                                     />
