@@ -1,6 +1,7 @@
 @import "../../styles/variables.scss";
 
-section.crianca, section.responsavel {
+section.crianca,
+section.responsavel {
   h2 {
     font-size: 20px;
   }
@@ -18,7 +19,12 @@ section.crianca, section.responsavel {
   color: $blue;
 }
 
-.card-manutencao{
+.cpf-iguais {
+  font-size: 12px;
+  color: $red;
+}
+
+.card-manutencao {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 60px;
