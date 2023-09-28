@@ -6,9 +6,11 @@ pipeline {
       namespace = "${env.branchname == 'develop' ? 'cadastroinfantil-dev' : env.branchname == 'homolog' ? 'cadastroinfantil-hom' : env.branchname == 'homolog-r2' ? 'cadastroinfantil-hom2' : 'sme-cadastro-infantil' }"
     }
   
-    agent {
-      node { label 'python-36-cadastro' }
-    }
+    agent { kubernetes { 
+                  label 'builder'
+                  defaultContainer 'builder'
+                }
+              }
 
     options {
       buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
@@ -24,6 +26,11 @@ pipeline {
 
         stage('AnaliseCodigo') {
 	      when { branch 'homolog' }
+          agent { kubernetes { 
+                  label 'python36'
+                  defaultContainer 'builder'
+                }
+              }  
           steps {
               withSonarQubeEnv('sonarqube-local'){
                 sh 'echo "[ INFO ] Iniciando analise Sonar..." && sonar-scanner \
