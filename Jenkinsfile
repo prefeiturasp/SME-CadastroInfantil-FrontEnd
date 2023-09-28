@@ -6,9 +6,11 @@ pipeline {
       namespace = "${env.branchname == 'develop' ? 'cadastroinfantil-dev' : env.branchname == 'homolog' ? 'cadastroinfantil-hom' : env.branchname == 'homolog-r2' ? 'cadastroinfantil-hom2' : 'sme-cadastro-infantil' }"
     }
   
-    agent {
-      node { label 'python-36-cadastro' }
-    }
+    agent { kubernetes { 
+                  label 'builder'
+                  defaultContainer 'builder'
+                }
+              }
 
     options {
       buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
@@ -24,6 +26,11 @@ pipeline {
 
         stage('AnaliseCodigo') {
 	      when { branch 'homolog' }
+          agent { kubernetes { 
+                  label 'python36'
+                  defaultContainer 'builder'
+                }
+              }  
           steps {
               withSonarQubeEnv('sonarqube-local'){
                 sh 'echo "[ INFO ] Iniciando analise Sonar..." && sonar-scanner \
@@ -38,15 +45,11 @@ pipeline {
           steps {
             script {
               imagename1 = "registry.sme.prefeitura.sp.gov.br/${env.branchname}/cadastro-infantil-frontend"
-              //imagename2 = "registry.sme.prefeitura.sp.gov.br/${env.branchname}/sme-outra"
               dockerImage1 = docker.build(imagename1, "-f Dockerfile .")
-              //dockerImage2 = docker.build(imagename2, "-f Dockerfile_outro .")
               docker.withRegistry( 'https://registry.sme.prefeitura.sp.gov.br', registryCredential ) {
               dockerImage1.push()
-              //dockerImage2.push()
               }
               sh "docker rmi $imagename1"
-              //sh "docker rmi $imagename2"
             }
           }
         }
@@ -55,22 +58,26 @@ pipeline {
             when { anyOf {  branch 'master'; branch 'main'; branch 'development'; branch 'develop'; branch 'release'; branch 'homolog';  } }        
             steps {
                 script{
-                    if ( env.branchname == 'main' ||  env.branchname == 'master' || env.branchname == 'homolog' || env.branchname == 'release' ) {
+                    if ( env.branchname == 'main' ||  env.branchname == 'master' ) {
                         sendTelegram("🤩 [Deploy ${env.branchname}] Job Name: ${JOB_NAME} \nBuild: ${BUILD_DISPLAY_NAME} \nMe aprove! \nLog: \n${env.BUILD_URL}")
-                        timeout(time: 24, unit: "HOURS") {
-                            input message: 'Deseja realizar o deploy?', ok: 'SIM', submitter: 'kelwy_oliveira, anderson_morais'
-                        }
+			withCredentials([string(credentialsId: 'aprovadores-sigpae', variable: 'aprovadores')]) {
+                          timeout(time: 24, unit: "HOURS") {
+                              input message: 'Deseja realizar o deploy?', ok: 'SIM', submitter: "${aprovadores}"
+                          }
+			}
                     }
                     if ( env.branchname == 'homolog' || env.branchname == 'release' ) {
                         withCredentials([file(credentialsId: "${kubeconfig}", variable: 'config')]){
+			    sh('rm -f '+"$home"+'/.kube/config')
                             sh('cp $config '+"$home"+'/.kube/config')
                             sh 'kubectl rollout restart deployment/cadastro-infantil-frontend -n sme-cadastro-infantil'
                             sh('rm -f '+"$home"+'/.kube/config')
                         }
                     }
                     withCredentials([file(credentialsId: "${kubeconfig}", variable: 'config')]){
+			    sh('rm -f '+"$home"+'/.kube/config')
                             sh('cp $config '+"$home"+'/.kube/config')
-                            sh 'kubectl rollout restart deployment/cadastro-infantil-frontend -n sme-cadastro-infantil'
+                            sh "kubectl rollout restart deployment/cadastro-infantil-frontend -n ${namespace}"
                             sh('rm -f '+"$home"+'/.kube/config')
                     }
                 }
